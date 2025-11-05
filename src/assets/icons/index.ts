@@ -1,0 +1,17 @@
+export { ReactComponent as IconAdd } from './Add.svg';
+export { ReactComponent as IconAlert } from './icon-Alert.svg';
+export { ReactComponent as IconArrowLeftCircle } from './icon-ArrowLeftCircle.svg';
+export { ReactComponent as IconCertificate } from './Certificate.svg';
+export { ReactComponent as IconCheck } from './Check.svg';
+export { ReactComponent as IconCommunity } from './Community.svg';
+export { ReactComponent as IconContact } from './Contact.svg';
+export { ReactComponent as IconGearSix } from './GearSix.svg';
+export { ReactComponent as IconHeadset } from './Headset.svg';
+export { ReactComponent as IconHouse } from './House.svg';
+export { ReactComponent as IconInfo } from './Info.svg';
+export { ReactComponent as IconLightbulbFilament } from './LightbulbFilament.svg';
+export { ReactComponent as IconList } from './List.svg';
+export { ReactComponent as IconMagnifyingGlass } from './MagnifyingGlass.svg';
+export { ReactComponent as IconMegaphone } from './Megaphone.svg';
+export { ReactComponent as IconUserCircle } from './UserCircle.svg';
+export { ReactComponent as IconUsersThree } from './UsersThree.svg';

@@ -24,11 +24,11 @@ export const theme = {
         md: "1.562rem",     // 25px
         sm: "1.25rem",    // 20px
         base: "1rem",       // 16px
-        xs: "0.875rem",  // 13px
+        xs: "0.875rem",  // 14px
         xxs: "0.625rem" // 10px
     },
     fontWeight: {
-        ligth: 300,
+        light: 300,
         regular: 400,
         medium: 500,
         bold: 700

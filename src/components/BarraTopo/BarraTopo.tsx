@@ -1,6 +1,7 @@
 import { IconList } from "../../assets/icons"
 import { IconMagnifyingGlass } from "../../assets/icons"; 
 import "./BarraTopo.css"
+import { useMenu } from "../../hooks/useMenu";
 
 type BarraTopoProps = {
     title: string;
@@ -8,11 +9,13 @@ type BarraTopoProps = {
 }
 
 export default function BarraTopo({ title, iconType }: BarraTopoProps) {
+    const { toggleMenu } = useMenu();
     return (
         <div>
             <header className="barra-topo-container">
                 {iconType === 'menu' && 
-                <button className="barra-topo-botao-icone">
+                <button className="barra-topo-botao-icone"
+                onClick={toggleMenu}>
                     <IconList />
                 </button>}
                 {iconType === 'busca' &&

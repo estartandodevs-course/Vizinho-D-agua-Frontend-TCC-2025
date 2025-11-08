@@ -6,12 +6,15 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 import './theme';
+import { MenuProvider } from "./contexts/MenuContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <MenuProvider>
+          <App />
+        </MenuProvider>
       </BrowserRouter>
     </Provider>
   </StrictMode>

@@ -2,6 +2,8 @@
   height: 60px;
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 100;
 }
 
 .barra-topo-botao-icone

@@ -6,15 +6,17 @@ import Denuncias from "./pages/Denuncias/Denuncias";
 import Comunidade from "./pages/Comunidade/Comunidade";
 import Educacional from "./pages/Dicas/Dicas";
 import "./App.css"
+import MenuLateral from "./components/MenuLateral/MenuLateral";
+import EscondeMenu from "./components/EscondeMenu/EscondeMenu";
 /*Fazer importações adicionais aqui, apenas para testes de components
 quando for finalizado, remover os imports desnecessários*/
 
 function App() {
   return (
     <>
-      
+      <MenuLateral />
+      <EscondeMenu />
       <main className="container-conteudo-pagina">
-       
        <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/denuncias" element={<Denuncias />} />

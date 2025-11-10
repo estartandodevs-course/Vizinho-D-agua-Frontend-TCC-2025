@@ -11,7 +11,6 @@ type BarraTopoProps = {
 export default function BarraTopo({ title, iconType }: BarraTopoProps) {
     const { toggleMenu } = useMenu();
     return (
-        <div>
             <header className="barra-topo-container">
                 {iconType === 'menu' && 
                 <button className="barra-topo-botao-icone"
@@ -25,6 +24,5 @@ export default function BarraTopo({ title, iconType }: BarraTopoProps) {
                 <h1 className="barra-topo-titulo">{title}</h1>
             </header>
                 
-        </div>
     );
 }

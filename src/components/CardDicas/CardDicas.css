@@ -2,7 +2,7 @@
     border-radius: 16px;
     overflow: hidden;
     margin-bottom: 24px;
-    background-color: var(--color-bg-white);
+    background-color: var(--color-bg-light-gray);
 }
 .card-dicas-imagem{
     position: relative;

@@ -1,6 +1,6 @@
 export type Alerta ={
     id: string;
-    alertType: "Alerta em Verificação" | "Alerta Verificado";
+    alertType: "Alerta em verificação" | "Alerta verificado";
     title: string;
     location: string;
     time: string;
@@ -10,7 +10,7 @@ export type Alerta ={
 export const mockAlertas: Alerta[] = [
     {
         id: "1",
-        alertType: "Alerta em Verificação",
+        alertType: "Alerta em verificação",
         title: "Falta de água desde ontem",
         location: "Rua das Palmeiras",
         time: "há 16h",
@@ -18,7 +18,7 @@ export const mockAlertas: Alerta[] = [
     },
     {
         id: "2",
-        alertType: "Alerta Verificado",
+        alertType: "Alerta verificado",
         title: "Baixa pressão na rede",
         location: "Bairro dos Coqueiros",
         time: "há 19h",

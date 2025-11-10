@@ -8,7 +8,7 @@ body,
 html{
   font-family: var(--font-poppins);
 
-  background-color: var(--color-bg-white);
+  background-color: var(--color-bg-light-gray);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
 }

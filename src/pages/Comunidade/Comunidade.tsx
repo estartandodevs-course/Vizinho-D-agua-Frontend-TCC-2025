@@ -10,7 +10,7 @@ export default function Comunidade() {
     const abasDaPagina = ["Explorar", "Seguindo"];
     const[abaAtiva, setAbaAtiva] = useState(abasDaPagina[0]);
 
-    const comunidadadesFiltradas = mockComunidades.filter((comunidade: Comunidade) => {
+    const comunidadesFiltradas = mockComunidades.filter((comunidade: Comunidade) => {
         if (abaAtiva === "Explorar") {
             return !comunidade.isSeguindo;
         } else if (abaAtiva === "Seguindo") {
@@ -28,7 +28,7 @@ export default function Comunidade() {
             abaAtiva={abaAtiva}
             onAbaClick={setAbaAtiva} />
             <div className="lista-comunidades-container">
-                {comunidadadesFiltradas.map(comunidade =>
+                {comunidadesFiltradas.map(comunidade =>
                     <CardComunidade
                         key={comunidade.id}
                         title={comunidade.title}

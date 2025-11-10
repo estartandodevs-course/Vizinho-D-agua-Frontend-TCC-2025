@@ -1,21 +1,27 @@
 .barra-topo-container {
   height: 60px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
   align-items: center;
   position: relative;
   z-index: 100;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .barra-topo-botao-icone
 {
-    background: none;
+    grid-column: 1;
     border: none;
     cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .barra-topo-titulo {
-  flex-grow: 1;
+  grid-column: 2;
   text-align: center;
   font-size: var(--fs-base);
   font-family: var(--font-poppins);

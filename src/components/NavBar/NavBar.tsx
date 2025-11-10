@@ -3,13 +3,12 @@ import "./NavBar.css";
 import { IconHouse, IconLightbulbFilament, IconMegaphone, IconUsersThree } from "../../assets/icons";
 export default function NavBar() {
     return(
-        <div>
             <nav className="nav-bar-container">
                 <ul>
                     <li>
                         <NavLink to="/" className="nav-link">
                             <IconHouse />
-                            <span>Alerta</span>
+                            <span>Alertas</span>
                         </NavLink>
                     </li>
                     <li>
@@ -32,6 +31,5 @@ export default function NavBar() {
                     </li>
                 </ul>
             </nav>
-        </div>
     )
 }

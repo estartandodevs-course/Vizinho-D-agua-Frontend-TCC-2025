@@ -2,7 +2,8 @@
     display:flex;
     border-radius: 10px;
     padding: 4px;
-    margin-bottom: 24px
+    margin-bottom: 24px;
+    background-color: var(--color-bg-light-gray);
 }
 .aba-item{
     flex: 1;
@@ -16,7 +17,6 @@
     color: var(--color-bg-dark-gray);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    box-shadow: ;
 }
 .aba-item.ativa{
     background-color: var(--color-primary);

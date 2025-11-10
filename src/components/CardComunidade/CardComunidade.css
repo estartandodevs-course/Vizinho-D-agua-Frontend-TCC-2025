@@ -1,19 +1,17 @@
 .card-comunidade-container{
     display: flex;
-    padding: 15px;
-    align-items: flex-start;
-    background-color: var(--color-bg-white);
-    border: 1px solid var(--color-bg-light-gray);
+    flex-direction: column; 
+    padding: 16px;
+    background-color: var(--color-bg-light-gray);
     border-radius: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
-.card-comunidade-coluna-esq{
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    margin-right: 10px;
 
+.card-comunidade-corpo{
+    display:flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
 }
 
 .card-comunidade-imagem{
@@ -21,25 +19,16 @@
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 12px;
-
-}
-.card-comunidade-membros{
-    font-family: var(--font-darker-grotesque);
-    font-size: var(--fs-xs);
-    color: var(--color-bg-dark-gray);
-    font-weight: var(--font-weight-medium);
+    margin-right: 10px;
+    flex-shrink: 0;
 }
 
-.card-comunidade-coluna-dir{
+.card-comunidade-textos{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     align-self: stretch;
-    min-width: 0;
-}
-.card-comunidade-textos{
-    flex-grow: 1;
+    min-width: 0; 
 }
 
 .card-comunidade-titulo{
@@ -52,18 +41,34 @@
 
 .card-comunidade-descricao{
     font-family: var(--font-darker-grotesque);
-    font-size: var(--fs-base);
+    font-size: var(--fs-base); 
     color: var(--color-bg-dark-gray);
     margin-bottom: 12px;
-    line-height: 1.0;
-    latter-spacing: 0.02em;
+    line-height: 1.4; 
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
+.card-comunidade-footer{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+}
+
+.card-comunidade-membros{
+    font-family: var(--font-darker-grotesque);
+    font-size: var(--fs-xs);
+    color: var(--color-bg-dark-gray);
+    font-weight: var(--font-weight-medium);
 }
 
 .card-comunidade-link{
     font-family: var(--font-poppins);
     font-size: var(--fs-xs);
     color: var(--color-primary);
-    font-weight: var(--font-weight-medium);
-    align-self: flex-end;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.4;
 }

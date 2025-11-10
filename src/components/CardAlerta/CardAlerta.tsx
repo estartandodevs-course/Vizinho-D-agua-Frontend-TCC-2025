@@ -5,7 +5,7 @@ import { IconAttentionColor, IconCheckColor } from "../../assets/icons";
 import { Link } from "react-router-dom";
 
 type CardAlertaProps = {
-    alertType: "Alerta em Verificação" | "Alerta Verificado";
+    alertType: "Alerta em verificação" | "Alerta verificado";
     title: string;
     location: string;
     time: string;
@@ -18,12 +18,12 @@ export default function CardAlerta({alertType, title, location, time, expandedTe
 
     const getEstiloPorTipo = () =>{
         switch(alertType){
-            case "Alerta em Verificação":
+            case "Alerta em verificação":
                 return{
                     classCor: 'tipo-verificacao',
                     icone: <IconAttentionColor />
                 };
-            case "Alerta Verificado":
+            case "Alerta verificado":
                 return{
                     classCor: 'tipo-verificado',
                     icone: <IconCheckColor />
@@ -50,13 +50,13 @@ export default function CardAlerta({alertType, title, location, time, expandedTe
                 {estaExpandido && (
                     <p className="card-alerta-expandido">{expandedText}</p>
                 )}
-            </div>        
-        </div>
             <Link to="#" 
             className={`card-alerta-ver-detalhes ${estaExpandido ? 'link-expandido' : ''}`}
                 onClick={() => setEstaExpandido(!estaExpandido)}>
                 {estaExpandido ? "Fechar" : "Ver detalhes"}
             </Link>
+            </div>        
+        </div>
         </div>
     )
 }

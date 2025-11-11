@@ -3,7 +3,7 @@
     border-radius: 10px;
     padding: 4px;
     margin-bottom: 24px;
-    background-color: var(--color-bg-light-gray);
+    background-color: var(--color-bg-white);
 }
 .aba-item{
     flex: 1;

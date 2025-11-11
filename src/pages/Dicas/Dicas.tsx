@@ -29,11 +29,13 @@ export default function Dicas() {
             iconType="menu"
             />
             <Busca placeholder="Buscar conteúdo especifico" />
+            <nav>
             <Abas listaDeAbas={abasDaPagina}
             abaAtiva={abaAtiva} 
             onAbaClick={setAbaAtiva}
             />
-            <div className="lista-dicas-container">
+            </nav>
+            <section className="lista-dicas-container">
                 {dicasFiltradas.map(dicas =>(
                     <CardEducacional key={dicas.id}
                     image={dicas.image}
@@ -42,7 +44,7 @@ export default function Dicas() {
                     contentType={dicas.contentType}
                     />
                 ))}
-            </div>
+            </section>
 
         </>
     );

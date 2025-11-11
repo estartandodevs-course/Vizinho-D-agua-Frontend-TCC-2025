@@ -4,7 +4,7 @@
     border-radius: 8px;
     padding: 10px 16px;
     margin-bottom: 24px;
-    background-color: var(--color-bg-light-gray);
+    background-color: var(--color-bg-white);
 }
 .busca-input{
     flex-grow: 1;
@@ -22,11 +22,20 @@
 .busca-icone-wrapper{
     display:flex;
     align-items: center;
-
     border-left: 2px solid var(--color-primary);
     padding-left: 12px;
     margin-left: 12px;
 }
+
+.busca-botao-submit{
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
 .busca-icone-svg
 {
     width: 20px;

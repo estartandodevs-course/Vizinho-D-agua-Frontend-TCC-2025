@@ -10,7 +10,7 @@ export type Comunidade = {
 export const mockComunidades: Comunidade[] = [
     {
         id: "c1",
-        title: "Amantes da Natureza", 
+        title: "Guia de sobrevivência sem água", 
         description: "Comunidade voltada para compartilhar dicas práticas de como lidar com a falta de água no dia a dia.",
         coverImage: '/comunidade-agua.png',
         membros: 500,

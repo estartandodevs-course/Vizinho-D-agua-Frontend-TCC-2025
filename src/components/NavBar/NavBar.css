@@ -43,6 +43,7 @@
 .nav-link.active{
     color: var(--color-primary);
     border-top: 3px solid var(--color-primary);
+
 }
 .nav-link.active svg{
     color: var(--color-primary);

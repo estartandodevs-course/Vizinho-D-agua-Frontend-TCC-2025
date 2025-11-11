@@ -16,12 +16,13 @@ export default function CardDenuncia({ title, location, date, status, linkType }
             return {text: 'Processada', className: 'status-processada'};
         }
         const statusInfo = getStatusInfo();
+        
     return (
-        <div className="card-denuncia-container">
+        <article className="card-denuncia-container">
             <h3 className="card-denuncia-titulo">{title}</h3>
             <span className="card-denuncia-info">{location} • {date}</span>
             
-            <div className="card-denuncia-footer">
+            <footer className="card-denuncia-footer">
                 <span className={`card-denuncia-status ${statusInfo.className}`}>
                     {statusInfo.text}  </span>
             
@@ -31,7 +32,7 @@ export default function CardDenuncia({ title, location, date, status, linkType }
                 <Link to="#" className="card-denuncia-link">Ver Detalhes</Link>
             )
             }
-            </div>
-        </div>
+            </footer>
+        </article>
     )
 }

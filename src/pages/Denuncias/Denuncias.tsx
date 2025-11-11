@@ -8,7 +8,7 @@ export default function Denuncias() {
             <BarraTopo 
             title="Denúncias"
             iconType="menu"/>
-        <div className="lista-denuncias-container">
+        <section className="lista-denuncias-container">
             {mockDenuncias.map(denuncia => (
                 <CardDenuncia key={denuncia.id}
                 title={denuncia.title}
@@ -18,7 +18,7 @@ export default function Denuncias() {
                 linkType={denuncia.linkType}
                 />
             ))}
-        </div>
+        </section>
             <BotaoAdiciona />
         </>
     );

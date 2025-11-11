@@ -24,10 +24,12 @@ export default function Comunidade() {
             title="Comunidades"
             iconType="menu" />
             <Busca placeholder="Buscar por uma comunidade" />
+            <nav>
             <Abas listaDeAbas={abasDaPagina}
             abaAtiva={abaAtiva}
             onAbaClick={setAbaAtiva} />
-            <div className="lista-comunidades-container">
+            </nav>
+            <section className="lista-comunidades-container">
                 {comunidadesFiltradas.map(comunidade =>
                     <CardComunidade
                         key={comunidade.id}
@@ -38,7 +40,7 @@ export default function Comunidade() {
                     />
                 )}
                   
-            </div>
+            </section>
         </>
     );
 }

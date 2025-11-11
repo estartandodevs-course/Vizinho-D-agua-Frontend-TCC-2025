@@ -2,7 +2,6 @@ import { useState } from "react";
 import './CardAlerta.css'
 
 import { IconAttentionColor, IconCheckColor } from "../../assets/icons";
-import { Link } from "react-router-dom";
 
 type CardAlertaProps = {
     alertType: "Alerta em verificação" | "Alerta verificado";
@@ -37,7 +36,7 @@ export default function CardAlerta({alertType, title, location, time, expandedTe
     }
     const {classCor, icone} = getEstiloPorTipo();
     return (
-        <div className={`card-alerta-container ${classCor}`}>
+        <article className={`card-alerta-container ${classCor}`}>
         <div className="card-alerta-linha-superior">
             <div className="card-alerta-icone">
                 {icone}
@@ -50,13 +49,13 @@ export default function CardAlerta({alertType, title, location, time, expandedTe
                 {estaExpandido && (
                     <p className="card-alerta-expandido">{expandedText}</p>
                 )}
-            <Link to="#" 
+            <button 
             className={`card-alerta-ver-detalhes ${estaExpandido ? 'link-expandido' : ''}`}
-                onClick={() => setEstaExpandido(!estaExpandido)}>
+                onClick={() => setEstaExpandido(!estaExpandido)}> 
                 {estaExpandido ? "Fechar" : "Ver detalhes"}
-            </Link>
+            </button>
             </div>        
         </div>
-        </div>
+        </article>
     )
 }

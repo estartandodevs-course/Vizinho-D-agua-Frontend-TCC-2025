@@ -9,7 +9,7 @@ type CardComunidadeProps = {
 export default function CardComunidade({ title, description, image, membros }: CardComunidadeProps) {
     
     return(
-        <div className="card-comunidade-container">
+        <article className="card-comunidade-container">
 
             <div className='card-comunidade-corpo'>
                 <img src={image} alt={`Capa da comunidade ${title}`} className='card-comunidade-imagem' />
@@ -19,10 +19,10 @@ export default function CardComunidade({ title, description, image, membros }: C
                 </div>
             </div>
 
-            <div className='card-comunidade-footer'>
+            <footer className='card-comunidade-footer'>
                 <span className='card-comunidade-membros'>{membros} membros</span>
                 <Link to="#" className='card-comunidade-link'>Ver comunidade</Link>
-            </div>
-        </div>
+            </footer>
+        </article>
     );
 }

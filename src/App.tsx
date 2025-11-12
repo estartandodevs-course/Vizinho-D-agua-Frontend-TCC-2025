@@ -8,6 +8,7 @@ import Educacional from "./pages/Dicas/Dicas";
 import "./App.css"
 import MenuLateral from "./components/MenuLateral/MenuLateral";
 import EscondeMenu from "./components/EscondeMenu/EscondeMenu";
+import CriarDenuncia from "./pages/CriarDenuncia/CriarDenuncia";
 /*Fazer importações adicionais aqui, apenas para testes de components
 quando for finalizado, remover os imports desnecessários*/
 
@@ -22,6 +23,11 @@ function App() {
         <Route path="/denuncias" element={<Denuncias />} />
         <Route path="/comunidade" element={<Comunidade />} />
         <Route path="/dicas" element={<Educacional />} />
+
+        <Route path="/criar-denuncia" element={<CriarDenuncia />}></Route>
+        {/* <Route path="/editar-denuncia/:id" element={<EditarDenuncia />}></Route>
+        <Route path="/sucesso-denuncia" element={<SucessoDenuncia />}></Route>
+        <Route path="/sucesso-editar" element={<SucessoEditar />}></Route> */}
       </Routes>
   
       </main>

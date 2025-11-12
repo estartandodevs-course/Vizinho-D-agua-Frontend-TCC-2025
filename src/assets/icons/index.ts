@@ -19,3 +19,6 @@ export { default as IconAttentionColor } from './AttentionColor.svg?react';
 export { default as IconCheckColor } from './CheckColor.svg?react';
 export { default as IconArrowDown } from './ArrowDown.svg?react';
 export { default as IconPlay } from './Play.svg?react';
+export { default as IconVolta } from './Volta.svg?react';
+export { default as IconSetaBaixo } from './SetaBaixo.svg?react';
+export { default as IconAnexo } from './Anexo.svg?react';

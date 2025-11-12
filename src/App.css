@@ -3,4 +3,7 @@
   padding-left: 24px;
   padding-right: 24px;
 
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 120px;
 }

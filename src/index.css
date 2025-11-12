@@ -11,12 +11,14 @@ html{
   background-color: var(--color-bg-light-gray);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #root
 {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
 
   display: flex;
   flex-direction: column;

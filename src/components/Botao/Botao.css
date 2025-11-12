@@ -1,0 +1,22 @@
+.botao-container
+{
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 20px;
+    border-radius: 30px;
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-base);
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+}
+
+.botao-container:active{
+    transform: scale(0.98);
+    opacity: 0.8;
+}

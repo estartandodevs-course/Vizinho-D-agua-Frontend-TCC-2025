@@ -11,14 +11,15 @@ html{
   background-color: var(--color-bg-light-gray);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
-  height: 100vh;
-  overflow: hidden;
+  /* height: 100vh;
+  overflow: hidden; */
+  min-height: 100vh;
 }
 
 #root
 {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;

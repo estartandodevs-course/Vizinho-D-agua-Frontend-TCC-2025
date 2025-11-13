@@ -54,6 +54,9 @@ export default function EditarDenuncia() {
         event.preventDefault();
         voltar("/sucesso-editar");
     }
+    const handlerCancelar = () => {
+        voltar(-1);
+    }
 
     return(
         <>
@@ -112,9 +115,16 @@ export default function EditarDenuncia() {
                 )}
             </div>
             
+            <div className="formulario-botoes-footer">
+            <button type="button"
+            className="botao-cancelar"
+            onClick={handlerCancelar}>
+                Cancelar
+            </button>
 
             <Botao type="submit" variante="primario">
             Editar denúncia</Botao>
+            </div>
         </form>
         </>
 

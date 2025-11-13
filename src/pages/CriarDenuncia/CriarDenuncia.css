@@ -43,3 +43,26 @@
     object-fit: cover;
     border-radius: 8px;
 }
+
+.formulario-botoes-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;   
+}
+
+.botao-cancelar{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--fs-base);
+    color: var(--color-text);
+}
+
+.formulario-botoes-footer .botao-container{
+    margin-left: 0;
+    margin-right: 0;
+}

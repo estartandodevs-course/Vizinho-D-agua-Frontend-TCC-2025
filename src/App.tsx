@@ -11,6 +11,7 @@ import CriarDenuncia from "./pages/CriarDenuncia/CriarDenuncia";
 import LayoutPrincipal from "./components/LayoutPrincipal/LayoutPrincipal";
 import SucessoDenuncia from "./pages/SucessoDenuncia/SucessoDenuncia";
 import EditarDenuncia from "./pages/EditarDenuncia/EditarDenuncia";
+import SucessoEditar from "./pages/SucessoEditar/SucessoEditar";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
 
 
         <Route path="/sucesso-denuncia" element={<SucessoDenuncia />}></Route>
-        {/* <Route path="/sucesso-editar" element={<SucessoEditar />}></Route> */}
+        <Route path="/sucesso-editar" element={<SucessoEditar />}></Route>
       </Routes>
 
     </>

@@ -2,13 +2,15 @@ import { Link } from "react-router-dom";
 import "./CardDenuncia.css";
 
 type CardDenunciaProps = {
- title: string;
+    id: string;
+    title: string;
     location: string;
     date: string;
     status: 'Em Andamento' | 'Processada';
     linkType: 'Editar' | 'Ver Detalhes';
+    onVerDetalhesClick?: () => void;
 }
-export default function CardDenuncia({ title, location, date, status, linkType }: CardDenunciaProps     ) {
+export default function CardDenuncia({ id, title, location, date, status, linkType, onVerDetalhesClick }: CardDenunciaProps     ) {
         const getStatusInfo = () =>{
             if(status === 'Em Andamento'){
                 return {text: 'Em Andamento', className: 'status-em-andamento'};
@@ -27,11 +29,14 @@ export default function CardDenuncia({ title, location, date, status, linkType }
                     {statusInfo.text}  </span>
             
             {linkType === 'Editar' ? (
-                <Link to="#" className="card-denuncia-link">Editar</Link>
-            ) : (
-                <Link to="#" className="card-denuncia-link">Ver Detalhes</Link>
-            )
-            }
+                <Link to={`/editar-denuncia/${id}`} className="card-denuncia-link">
+                    Editar
+                </Link>
+            ):(
+                <button onClick={onVerDetalhesClick} className="card-denuncia-link as-button">
+                    Ver Detalhes
+                </button>
+            )}
             </footer>
         </article>
     )

@@ -9,15 +9,37 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 120px;
+    height: 150px;
     border-radius: 8px;
     background-color: var(--color-bg-white);
     color: var(--color-bg-darker-gray);
-    font-size: var(--fs-xxl);
+    font-size: var(--fs-xs);
     cursor: pointer;
 }
 
 .anexo-placeholder:hover
 {
     opacity: 0.8;
+}
+.anexo-placeholder span {
+    font-size: var(--fs-base); 
+    font-weight: var(--font-weight-medium);
+    margin-bottom: 8px;
+}
+.anexo-placeholder input[type="file"]
+{
+    display: none;
+}
+
+.anexo-galeria{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.anexo-imagem-item{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
 }

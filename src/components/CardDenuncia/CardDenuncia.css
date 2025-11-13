@@ -45,6 +45,12 @@
     margin-left: 24px;
     line-height: 1.4;
 }
+.card-denuncia-link.as-button{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
 
 .status-em-andamento{
     color: var(--color-primary);

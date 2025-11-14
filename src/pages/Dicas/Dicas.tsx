@@ -42,6 +42,7 @@ export default function Dicas() {
                     title={dicas.title}
                     author={dicas.author}
                     contentType={dicas.contentType}
+                    fileUrl={dicas.fileUrl}
                     />
                 ))}
             </section>

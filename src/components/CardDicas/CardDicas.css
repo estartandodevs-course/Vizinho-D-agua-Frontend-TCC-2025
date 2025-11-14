@@ -60,7 +60,18 @@
 }
 .card-dicas-download-icone{
    color: var(--color-primary);
-   font-size: 24px;
     cursor: pointer;
     padding-left: 16px;
+}
+
+.card-dicas-download-icone svg{
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.card-dicas-download-icone.disabled{
+    color: var(--color-bg-light-gray);
+    cursor: not-allowed;
+    opacity: 0.6;
 }

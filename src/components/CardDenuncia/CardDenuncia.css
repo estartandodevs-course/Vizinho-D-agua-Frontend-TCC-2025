@@ -1,6 +1,6 @@
 .card-denuncia-container{
     margin-bottom: 24px;
-    background-color: var(--color-bg-white);
+
     border-radius: 16px;
     padding: 16px;
    
@@ -21,6 +21,7 @@
     color: var(--color-bg-dark-gray);
     margin-bottom: 12px;
     display: block;
+    
 }
 
 .card-denuncia-footer
@@ -58,6 +59,6 @@
 }
 
 .status-processada{
-    color: var(--color-bg-dark-gray);
-   
+    color: var(--color-bg-darker-gray);
+    background-color: var(--color-bg-white);
 }

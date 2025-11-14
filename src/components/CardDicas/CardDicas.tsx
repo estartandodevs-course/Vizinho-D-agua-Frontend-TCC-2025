@@ -1,13 +1,15 @@
 import { IconArrowDown, IconPlay } from '../../assets/icons';
 import './CardDicas.css'
+
 type CardDicasProps = {
     image: string;
     title: string;
     author: string;
     contentType: "Video" | "Documento";   
+    fileUrl?: string;
 }
 
-export default function CardDicas({ image, title, author, contentType }: CardDicasProps) {
+export default function CardDicas({ image, title, author, contentType, fileUrl }: CardDicasProps) {
     const infoAutor = `${author} • ${contentType === "Video" ? "Vídeo" : "Documento"}`;
     
     return (
@@ -17,7 +19,7 @@ export default function CardDicas({ image, title, author, contentType }: CardDic
              alt={title}
              className='card-dicas-midia'>
            </img>
-           {contentType === 'Video' && (
+           {contentType === 'Video' &&  (
                 <div className="card-dicas-play-overlay">
                     <IconPlay />
                 </div>
@@ -28,10 +30,19 @@ export default function CardDicas({ image, title, author, contentType }: CardDic
                     <h3 className="card-dicas-titulo">{title}</h3>
                     <p className="card-dicas-autor">{infoAutor}</p>
                 </div>
-        
-                    <div className="card-dicas-download-icone">
-                        <IconArrowDown  />
-                    </div>
+                    {fileUrl ? (
+                        <a href={fileUrl} 
+                        download
+                        className='card-dicas-download-icone'>
+                            <IconArrowDown />
+                        </a>
+                        ) : (
+                            <span className='card-dicas-download-icone disabled' >
+                                <IconArrowDown />
+                            </span>
+                        )
+                    }
+                    
             </footer>
 
         </article>

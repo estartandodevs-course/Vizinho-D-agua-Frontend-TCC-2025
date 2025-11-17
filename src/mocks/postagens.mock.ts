@@ -21,10 +21,15 @@ const autorMarcos: PostAuthor = {
     name: "Marcos Carvalho",
     profileImage: "/MarcoPerfil.png",
 }
+const autorAna: PostAuthor = {
+    id: "u4",
+    name: "Ana Souza",
+    profileImage: "/ana-souza.png",
+}
 
 export type CommunityPost = {
     id: string;
-    communityId: 'c1' | 'c2';
+    communityId: 'c1' | 'c2' | 'c3';
     author: PostAuthor;
     date: string;
     content: string;
@@ -54,6 +59,15 @@ export const mockPostagens : CommunityPost[] = [
         author: autorMaria,
         date: '20/10/25',
         content: 'Vai rolar uma palestra super interessante sobre gestão participativa da água nesta sexta, às 18h! Entrada gratuita e aberta ao público. Bora participar?',
+    },
+    {
+        id: 'p4',
+        communityId: "c3",
+        author: autorAna,
+        date: '21/10/25',
+        content: 'Fui hoje a um evento sobre sustentabilidade urbana e adorei as discussões! Alguém mais esteve por lá?',
+        images: ['/banner-limpeza.jpg']
     }
+   
 
 ]

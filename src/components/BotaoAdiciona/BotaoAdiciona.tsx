@@ -3,7 +3,7 @@ import "./BotaoAdiciona.css";
 export default function BotaoAdiciona() {
     return(
         <Link to="/criar-denuncia" className="botao-adiciona-container">
-
+            
         </Link>
     )
 }

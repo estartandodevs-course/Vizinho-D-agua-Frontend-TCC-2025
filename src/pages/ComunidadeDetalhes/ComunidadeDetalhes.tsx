@@ -11,10 +11,12 @@ import ModalCriarPostagem from "../../components/ModalCriarPostagem/ModalCriarPo
 export default function ComunidadeDetalhes() {
     const {id} = useParams();
     const voltar = useNavigate();
+    const navegar = useNavigate();
 
     const [comunidade, setComunidade] = useState<Comunidade | null>(null);
     const [postagens, setPostagens] = useState<CommunityPost[]>([]);
     const [modalAberto, setModalAberto] = useState(false);
+
     useEffect(() => {
         const info = mockComunidades.find(comunidade => comunidade.id === id);
         if(info)
@@ -49,10 +51,17 @@ export default function ComunidadeDetalhes() {
                 </div>
                 <p className="detalhe-descricao">{comunidade?.description}</p>
                 
-                {comunidade?.isSeguindo ? (
-                    <button onClick={() => {}}  className="detalhe-botao-acao"> Deixar de seguir </button>
-                ):(
-                    <button onClick={() => {}}  className="detalhe-botao-acao">Seguir</button>
+                {comunidade.isOwner ?(
+                    <button onClick={() => navegar(`/editar-comunidade/${comunidade.id}`)}
+                    className="detalhe-botao-acao">
+                    Editar
+                    </button>
+                ): comunidade?.isSeguindo ?(
+                    <button onClick={() => {}} className="detalhe-botao-acao">Deixar de seguir</button>
+                ): (
+                    <button onClick={() => {}} className="detalhe-botao-acao">
+                    Seguir
+                    </button>
                 )}
             </section>
           

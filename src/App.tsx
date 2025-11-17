@@ -13,8 +13,11 @@ import EditarDenuncia from "./pages/EditarDenuncia/EditarDenuncia";
 import SucessoEditar from "./pages/SucessoEditar/SucessoEditar";
 import Contatos from "./pages/Contatos/Contato";
 import ComunidadeDetalhes from "./pages/ComunidadeDetalhes/ComunidadeDetalhes";
-
+import MinhasComunidades from "./pages/MinhasComunidades/MinhasComunidades";
+import CriarComunidade from "./pages/CriarComunidade/CriarComunidade";
+import SucessoComunidade from "./pages/SucessoComunidade/SucessoComunidade";
 function App() {
+
   return (
     <>
       <MenuLateral />
@@ -25,6 +28,8 @@ function App() {
           <Route path="/denuncias" element={<Denuncias />} />
           <Route path="/comunidade" element={<Comunidade />} />
           <Route path="/comunidade/:id" element={<ComunidadeDetalhes />} />
+          <Route path="/minhas-comunidades" element={<MinhasComunidades />} />
+          <Route path="/criar-comunidades" element={<CriarComunidade />} />
           <Route path="/dicas" element={<Educacional />} />
           <Route path="/criar-denuncia" element={<CriarDenuncia />}></Route>
           <Route path="/editar-denuncia/:id" element={<EditarDenuncia />}></Route>
@@ -34,6 +39,7 @@ function App() {
 
         <Route path="/sucesso-denuncia" element={<SucessoDenuncia />}></Route>
         <Route path="/sucesso-editar" element={<SucessoEditar />}></Route>
+        <Route path="/sucesso-comunidade" element={<SucessoComunidade />}></Route>
       </Routes>
 
     </>

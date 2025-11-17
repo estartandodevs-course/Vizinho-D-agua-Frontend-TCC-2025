@@ -24,7 +24,7 @@ export default function MenuLateral() {
                 <ul>
                     <li><IconUserCircle /><Link to="#">Meu Perfil</Link></li>
                     <li><IconGearSix /><Link to="#">Configurações</Link></li>
-                    <li><IconUsersThree /><Link to="#">Minhas comunidades</Link></li>
+                    <li><IconUsersThree /><Link to="/minhas-comunidades">Minhas comunidades</Link></li>
                     <li><IconContact/><Link to="/contatos" onClick={toggleMenu}>Contato</Link></li>
                     <li><IconInfo /><Link to="#">Sobre</Link></li>
                     <li><IconHeadset /><Link to="#">Central de Ajuda</Link></li>

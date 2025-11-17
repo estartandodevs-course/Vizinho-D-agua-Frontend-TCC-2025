@@ -6,6 +6,7 @@ export type Comunidade = {
     coverImage: string;
     membros: number;
     isSeguindo: boolean;
+    isOwner: boolean;
 }
 
 export const mockComunidades: Comunidade[] = [
@@ -17,6 +18,7 @@ export const mockComunidades: Comunidade[] = [
         bannerImage: '/banner-agua.jpg',
         membros: 500,
         isSeguindo: false,
+        isOwner: false,
     },
     {
         id: "c2",
@@ -26,5 +28,16 @@ export const mockComunidades: Comunidade[] = [
         bannerImage: '/banner-palestras.jpg',
         membros: 200,
         isSeguindo: true,
+        isOwner: false,
+    },
+    {
+        id: "c3",
+        title: 'Práticas para comunidades',
+        description: 'Comunidade voltada para divulgar práticas comunitárias aplicadas em comunidades. O objetivo é apresentar as práticas e seus resultados para caso queiram replicam em suas comunidades.',
+        coverImage: '/card-praticas.jpg',
+        bannerImage: '/banner-praticas.jpg',
+        membros: 57,
+        isSeguindo: true,
+        isOwner: true,
     }
 ]

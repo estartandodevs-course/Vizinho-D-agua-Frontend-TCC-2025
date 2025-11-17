@@ -33,9 +33,11 @@ export default function Comunidade() {
                 {comunidadesFiltradas.map(comunidade =>
                     <CardComunidade
                         key={comunidade.id}
+                        id={comunidade.id}
                         title={comunidade.title}
                         description={comunidade.description}
                         image={comunidade.coverImage}
+                        
                         membros={comunidade.membros}
                     />
                 )}

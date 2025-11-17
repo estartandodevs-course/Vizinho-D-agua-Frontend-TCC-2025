@@ -51,17 +51,19 @@
 .contato-linha span{
    flex-grow: 1;
    min-width: 0;
+
 }
 
 .contato-descrica-linha{
     display: none;
+
 }
 
 .contato-linha a span.contato-link-descricao{
     color: var(--color-text);
     display: block;
     padding-left: 4px;
-    text-decoration: none;
+
 }
 
 .card-info-contato a[href^="mailto:"]{

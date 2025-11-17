@@ -23,3 +23,4 @@ export { default as IconVolta } from './Volta.svg?react';
 export { default as IconSetaBaixo } from './SetaBaixo.svg?react';
 export { default as IconAnexo } from './Anexo.svg?react';
 export { default as IconX } from './X.svg?react';
+export { default as IconVolta2 } from './Volta2.svg?react';

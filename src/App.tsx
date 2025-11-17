@@ -4,7 +4,6 @@ import Home from "./pages/Home/Home";
 import Denuncias from "./pages/Denuncias/Denuncias";
 import Comunidade from "./pages/Comunidade/Comunidade";
 import Educacional from "./pages/Dicas/Dicas";
-import "./App.css"
 import MenuLateral from "./components/MenuLateral/MenuLateral";
 import EscondeMenu from "./components/EscondeMenu/EscondeMenu";
 import CriarDenuncia from "./pages/CriarDenuncia/CriarDenuncia";
@@ -13,6 +12,8 @@ import SucessoDenuncia from "./pages/SucessoDenuncia/SucessoDenuncia";
 import EditarDenuncia from "./pages/EditarDenuncia/EditarDenuncia";
 import SucessoEditar from "./pages/SucessoEditar/SucessoEditar";
 import Contatos from "./pages/Contatos/Contato";
+import ComunidadeDetalhes from "./pages/ComunidadeDetalhes/ComunidadeDetalhes";
+
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/denuncias" element={<Denuncias />} />
           <Route path="/comunidade" element={<Comunidade />} />
+          <Route path="/comunidade/:id" element={<ComunidadeDetalhes />} />
           <Route path="/dicas" element={<Educacional />} />
           <Route path="/criar-denuncia" element={<CriarDenuncia />}></Route>
           <Route path="/editar-denuncia/:id" element={<EditarDenuncia />}></Route>

@@ -1,12 +1,13 @@
 import './CardComunidade.css';
 import { Link } from 'react-router-dom';
 type CardComunidadeProps = { 
+    id: string;
     title: string;
     description: string;
     image: string;
     membros: number;
 }
-export default function CardComunidade({ title, description, image, membros }: CardComunidadeProps) {
+export default function CardComunidade({ id, title, description, image, membros }: CardComunidadeProps) {
     
     return(
         <article className="card-comunidade-container">
@@ -21,7 +22,7 @@ export default function CardComunidade({ title, description, image, membros }: C
 
             <footer className='card-comunidade-footer'>
                 <span className='card-comunidade-membros'>{membros} membros</span>
-                <Link to="#" className='card-comunidade-link'>Ver comunidade</Link>
+                <Link to={`/comunidade/${id}`} className='card-comunidade-link'>Ver comunidade</Link>
             </footer>
         </article>
     );

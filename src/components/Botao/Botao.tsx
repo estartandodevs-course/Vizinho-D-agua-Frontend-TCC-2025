@@ -5,12 +5,15 @@ type BotaoProps = {
     children: React.ReactNode;
     type?: 'button' | 'submit' | 'reset';
     variante?: 'primario' | 'sucesso';
+    className?: string;
 }
 
-export default function Botao({ onClick, children, type = 'button', variante = 'primario' }: BotaoProps) {
+export default function Botao({ onClick, children, type = 'button', variante = 'primario', className }: BotaoProps) {
+    const classesDeBotao = `botao-container ${variante} ${className || ''}`;
+    
     return(
         <button
-            className={`botao-container ${variante}`}
+            className={classesDeBotao}
             type={type}
             onClick={onClick}
         >

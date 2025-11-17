@@ -7,13 +7,14 @@ import { IconVolta2 } from "../../assets/icons";
 import CardPostagem from "../../components/CardPostagem/CardPostagem";
 import "./ComunidadeDetalhes.css";
 import Botao from "../../components/Botao/Botao";
+import ModalCriarPostagem from "../../components/ModalCriarPostagem/ModalCriarPostagem";
 export default function ComunidadeDetalhes() {
     const {id} = useParams();
     const voltar = useNavigate();
 
     const [comunidade, setComunidade] = useState<Comunidade | null>(null);
     const [postagens, setPostagens] = useState<CommunityPost[]>([]);
-    
+    const [modalAberto, setModalAberto] = useState(false);
     useEffect(() => {
         const info = mockComunidades.find(comunidade => comunidade.id === id);
         if(info)
@@ -64,9 +65,15 @@ export default function ComunidadeDetalhes() {
 
             {comunidade?.isSeguindo && (
                 <div className="detalhe-fab-container">
-                    <Botao onClick={() => {}} variante="primario">+ Nova Postagem</Botao>
+                    <Botao onClick={() => setModalAberto(true)} variante="primario">+ Nova Postagem</Botao>
                 </div>
             )}
+            {modalAberto && (
+                <ModalCriarPostagem
+                comunidadeNome={comunidade.title}
+                onClose={() => setModalAberto(false)}
+                />
+                )}
         </div>
     )
 }

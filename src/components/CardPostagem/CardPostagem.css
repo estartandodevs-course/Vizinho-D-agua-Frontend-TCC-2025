@@ -28,7 +28,7 @@
 .card-post-autor {
     font-family: var(--font-poppins);
     font-weight: var(--font-weight-semibold);
-    font-size: var(--fs-base);
+    font-size: var(--fs-xs);
     color: var(--color-text);
 }
 
@@ -51,7 +51,7 @@
 
 .card-post-gallery {
     display: grid;
-    gap: 8px;
+    gap: 1px;
     border-radius: 8px;
     overflow: hidden;
 }

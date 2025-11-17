@@ -38,7 +38,7 @@ export const mockPostagens : CommunityPost[] = [
         author: autorMarcos,
         date: '21/10/25',
         content: 'Sem água em casa? Priorize o uso para cozinhar e higiene pessoal. Evite lavar louça ou roupa até o abastecimento voltar — cada gota conta!',
-        images: ['/comunidade-agua.png']
+        images: ['/sem-agua.jpg']
     },
     {
         id: "p2",
@@ -46,7 +46,7 @@ export const mockPostagens : CommunityPost[] = [
         author: autorJorge,
         date: '21/10/25',
         content: 'Participei ontem de uma oficina sobre gestão de recursos hídricos e foi incrível! Recomendo muito pra quem quer entender melhor sobre o uso consciente da água.',
-        images: ['/comunidade-palestra.png', '/dica-agua.png']
+        images: ['/Evento1.jpg', '/Evento2.jpg']
     },
     {
         id: 'p3',

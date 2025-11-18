@@ -30,10 +30,11 @@ const autorAna: PostAuthor = {
 export type CommunityPost = {
     id: string;
     communityId: 'c1' | 'c2' | 'c3';
-    author: PostAuthor;
-    date: string;
     content: string;
     images?: string[];
+    
+    author: PostAuthor;
+    date: string;
 }
 
 export const mockPostagens : CommunityPost[] = [

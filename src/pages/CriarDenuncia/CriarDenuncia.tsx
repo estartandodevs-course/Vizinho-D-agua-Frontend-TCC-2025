@@ -15,7 +15,7 @@ type DadosDenuncia = {
     location: string;
     description: string;
     company: string;
-    //anexo: File[];
+   
 }
 
 export default function CriarDenuncia() {
@@ -28,6 +28,8 @@ export default function CriarDenuncia() {
         description: "",
 
     });
+    const [anexosPreview, setAnexosPreview] = useState<string[]>([]);
+    const [anexosFiles, setAnexosFiles] = useState<File[]>([]);
 
     const handleMudanca = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -37,8 +39,24 @@ export default function CriarDenuncia() {
         }));
     }
 
+    const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files){
+            const arquivos = Array.from(e.target.files);
+            const novosPreviews = arquivos.map(file => URL.createObjectURL(file));
+            setAnexosPreview(prev => [...prev, ...novosPreviews]);
+            setAnexosFiles(prev => [...prev, ...arquivos]);
+        }
+
+    }
+    const handleRemoverAnexo = (indexRemover: number) => {
+        setAnexosPreview(prev => prev.filter((_, index) => index !== indexRemover));
+        setAnexosFiles(prev => prev.filter((_, index) => index !== indexRemover));
+    }
+
     const handlerEnviar = (event: React.FormEvent) => {
         event.preventDefault();
+        console.log("Denúncia registrada:", dadosDenuncia);
+        console.log("Anexos:", anexosFiles);
         voltar("/sucesso-denuncia");
     }
 
@@ -77,10 +95,42 @@ export default function CriarDenuncia() {
                 onChange={handleMudanca}
             />
             
-            <div className="formulario-grupo">
+           <div className="formulario-grupo">
                 <label className="formulario-label">Anexos:</label>
-                <div className="anexo-placeholder">
-                    <IconAnexo />
+                
+                <div className="anexo-container-grande">
+                    
+                    <div className="galeria-mista-container">
+                        
+              
+                        {anexosPreview.map((preview, index) => (
+                            <div key={index} className="anexo-item-denuncia">
+                                <img src={`${preview}`} alt={`Anexo ${index + 1}`} className="preview-thumb" />  
+                                <button 
+                                type="button" 
+                                className="botao-remover-anexo" 
+                                onClick={() => handleRemoverAnexo(index)}>X</button>
+                            </div>
+                        ))}
+
+                        <div className="anexo-botao-upload">
+                            <IconAnexo />
+                            <input
+                                type="file"
+                                multiple
+                                className="input-file-hidden"
+                                onChange={handleArquivoChange}
+                            />
+                        </div>
+                    </div>
+
+                    {anexosPreview.length === 0 && (
+                         <div className="placeholder-grande-anexos">
+                            <IconAnexo />
+
+                         </div>
+                    )}
+
                 </div>
             </div>
             <Botao type="submit">Registrar denúncia</Botao>

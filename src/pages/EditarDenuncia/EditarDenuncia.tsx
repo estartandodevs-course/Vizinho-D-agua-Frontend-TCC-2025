@@ -9,12 +9,14 @@ import { mockDenuncias } from "../../mocks/denuncias.mock";
 import FormularioTexto from "../../components/Formulario/FormularioTexto";
 import { IconAnexo } from "../../assets/icons";
 import './EditarDenuncia.css'
+
 type DadosDenuncia ={
     reportType: string;
     location: string;
     description: string;
     company: string;
-    anexo: string[];
+    anexoAntigo: string[];
+    anexoNovo: string[];
 }
 
 export default function EditarDenuncia() {
@@ -26,28 +28,57 @@ export default function EditarDenuncia() {
         company: "",
         location: "",
         description: "",
-        anexo: [],
+        anexoAntigo: [],
+        anexoNovo: [],
     });
+    
 
     useEffect(() =>{
         const denunciaParaEditar = mockDenuncias.find((denuncia) => denuncia.id === id);
         
         if(denunciaParaEditar){
             setDadosDenuncia({
-                reportType: denunciaParaEditar.title,
+                reportType: denunciaParaEditar.reportType,
                 company: denunciaParaEditar.company || "",
                 location: denunciaParaEditar.location,
                 description: denunciaParaEditar.description || "",
-                anexo: denunciaParaEditar.anexos || [],
+                anexoAntigo: denunciaParaEditar.anexos || [],
+                anexoNovo: [],
             });
         }
     }, [id]);
+
     
     const handleMudanca = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
         setDadosDenuncia((dadosAnteriores) => ({
             ...dadosAnteriores,
             [name]: value,
+        }));
+    }
+
+    const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files){
+            const arquivos = Array.from(e.target.files);
+            const novosPreviews = arquivos.map(file => URL.createObjectURL(file));
+            setDadosDenuncia((dadosAnteriores) => ({
+                ...dadosAnteriores,
+                anexoNovo: [...dadosAnteriores.anexoNovo, ...novosPreviews],
+            }));
+        
+        }
+
+    }
+    const removerAntigo = (indexRemover: number) => {
+        setDadosDenuncia(prev => ({
+            ...prev,
+            anexoAntigo: prev.anexoAntigo.filter((_, i) => i !== indexRemover)
+        }));
+    }
+    const removerNovo = (indexRemover: number) => {
+        setDadosDenuncia(prev => ({
+            ...prev,
+            anexoNovo: prev.anexoNovo.filter((_, i) => i !== indexRemover)
         }));
     }
 
@@ -99,20 +130,38 @@ export default function EditarDenuncia() {
             <div className="formulario-grupo">
                 <label className="formulario-label">Anexos: </label>
 
-                <div className="anexo-placeholder">
-                    {dadosDenuncia.anexo.length > 0 ? (
-                        <div className="anexo-galeria">
-                            {dadosDenuncia.anexo.map((anexoUrl, index) => (
-                                <img 
-                                key={index} 
-                                src={`/${anexoUrl}`} 
-                                alt={`Anexo ${index + 1}`} 
-                                className="anexo-imagem-item"/>
-                            ))}
+                <div className="anexo-container-com-borda">
+                    {dadosDenuncia.anexoAntigo.length === 0 && dadosDenuncia.anexoNovo.length === 0 && (
+                        <div className="placeholder-grande-anexos">
+                            <IconAnexo />
                         </div>
-                    ) : (
-                        <IconAnexo />
                     )}
+                    <div className="galeria-mista-container">
+                        
+                        {dadosDenuncia.anexoAntigo.map((anexo, index) => (
+                            <div key={`antigo-${index}`} className="anexo-item-wrapper">
+                                <img src={`/${anexo}`} alt={`Antigo ${index}`} className="preview-thumb" />
+                                <button type="button" className="botao-remover-anexo" onClick={() => removerAntigo(index)}>X</button>
+                            </div>
+                        ))}
+
+                        {dadosDenuncia.anexoNovo.map((anexo, index) => (
+                            <div key={`novo-${index}`} className="anexo-item-wrapper">
+                                <img src={anexo} alt={`Novo ${index}`} className="preview-thumb" />
+                                <button type="button" className="botao-remover-anexo" onClick={() => removerNovo(index)}>X</button>
+                            </div>
+                        ))}
+
+                        <div className="anexo-botao-upload">
+                            <input
+                                type="file"
+                                multiple
+                                className="input-file-hidden"
+                                onChange={handleArquivoChange}
+                            />
+                        </div>
+                    </div>
+                
                 </div>
             </div>
             

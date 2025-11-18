@@ -2,8 +2,9 @@ export type Comunidade = {
     id: string;
     title: string;
     description: string;
-    bannerImage?: string;
     coverImage: string;
+    
+    bannerImage?: string;
     membros: number;
     isSeguindo: boolean;
     isOwner: boolean;

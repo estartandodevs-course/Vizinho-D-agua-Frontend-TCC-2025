@@ -16,7 +16,7 @@ export default function Denuncias() {
                 <CardDenuncia 
                 key={denuncia.id}
                 id={denuncia.id}
-                title={denuncia.title}
+                title={denuncia.reportType}
                 location={denuncia.location}
                 date={denuncia.date}
                 status={denuncia.status}

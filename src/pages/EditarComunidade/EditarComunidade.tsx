@@ -21,6 +21,7 @@ export default function EditarComunidade() {
         description: "",
         bannerImage: ""
     });
+    const [bannerFile, setBannerFile] = useState<File | null>(null);
 
     useEffect(() =>{
         const comunidade = mockComunidades.find((comunidade) => comunidade.id === id);
@@ -28,8 +29,9 @@ export default function EditarComunidade() {
             setDadosComunidade({
                 title: comunidade.title,
                 description: comunidade.description,
-                bannerImage: comunidade.bannerImage
+                bannerImage: comunidade.bannerImage ? `${comunidade.bannerImage}` : ""
             });
+            setBannerFile(null);
         }
     }, [id]);
 
@@ -37,15 +39,21 @@ export default function EditarComunidade() {
         const {name, value} = e.target;
         setDadosComunidade((prev) => ({...prev, [name]: value}));
     }
-    const handlerImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         const previewUrl = file ? URL.createObjectURL(file) : "";
         setDadosComunidade((prev) => ({...prev, bannerImage: previewUrl}));
     }
 
+    const handleRemoverBanner = () => {
+        setDadosComunidade(prev => ({ ...prev, bannerImage: "" })); 
+        setBannerFile(null); 
+    }
+
     const handlerEviar = (event: React.FormEvent) => {
         event.preventDefault();
         console.log("Comunidade editada:", dadosComunidade);
+        console.log("Novo Banner: ", bannerFile);
         voltar("/sucesso-editar-comunidade");
     }
 
@@ -73,19 +81,41 @@ export default function EditarComunidade() {
 
             <div className="formulario-grupo">
                 <label className="formulario-label">Adicionar Foto de Capa: </label>
-                <div className="editar-capa-wrapper">
-                    <img src={`${dadosComunidade.bannerImage}`}
-                    alt="Capa da comunidade"
-                    className="capa-preview-imagem"/>
+                <div className="capa-banner-wrapper"> 
+                    {dadosComunidade.bannerImage ? (
+                        <>
+                           
+                            <img 
+                                src={dadosComunidade.bannerImage}
+                                alt="Capa da comunidade"
+                                className="capa-preview-imagem-grande"
+                            />
+                          
+                            <button type="button" className="remover-capa-btn" onClick={handleRemoverBanner}>X</button>
+                            
+                            
+                            <div className="capa-overlay-edicao">
+                                <IconAnexoColor />
+                            </div>
+                        </>
+                    ) : (
 
-                    <div className="capa-overlay">
-                        <IconAnexoColor />
-                    </div>
-                    <input type="file" 
-                    className="input-file-hidden"
-                    onChange={handlerImagemChange}></input>
+                        <div className="placeholder-grande">
+                            <IconAnexoColor />
+                           
+                        </div>
+                    )}
+                    
+                    
+                    <input 
+                        type="file" 
+                        onChange={handleImagemChange} 
+                        className="input-file-on-top" 
+                        accept="image/*" 
+                    />
                 </div>
             </div>
+            
             <div className="formulario-botoes-footer">
                 <button type="button"
                 className="botao-cancelar"

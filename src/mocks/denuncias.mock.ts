@@ -1,11 +1,12 @@
 export type Denuncia = {
     id: string;
-    title: string;
+    reportType: string;
+    description?: string;
+    status: 'Em Andamento' | 'Processada';
+    
     location: string;
     date: string;
     company?: string;
-    description?: string;
-    status: 'Em Andamento' | 'Processada';
     linkType: 'Editar' | 'Ver Detalhes';
     anexos?: string[];
 }
@@ -13,7 +14,7 @@ export type Denuncia = {
 export const mockDenuncias: Denuncia[] = [
     {
         id: 'd1',
-        title: 'Falta de água',
+        reportType: 'Falta de água',
         location: 'Rua das Palmeiras',
         date: '21/10/2025',
         company: 'Cedae',
@@ -24,7 +25,7 @@ export const mockDenuncias: Denuncia[] = [
     },
     {
         id: 'd2',
-        title: 'Baixa Pressão',
+        reportType: 'Baixa Pressão',
         location: 'Bairro dos Coqueiros',
         date: '01/10/2025',
         company: 'Águas do Rio',

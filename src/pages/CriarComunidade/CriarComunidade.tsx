@@ -5,7 +5,7 @@ import FormularioTexterea from "../../components/Formulario/FormularioTexterea";
 import Botao from "../../components/Botao/Botao";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "./CriarComunidade.css"
 type DadosComunidade ={
     title: string;
     description: string;
@@ -19,15 +19,29 @@ export default function CriarComunidade() {
         title: "",
         description: ""
     });
+    const [bannerImage, setBannerImage] = useState<string>("");
+    const [bannerFile, setBannerFile] = useState<File | null>(null);
 
     const handleMudanca = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
        setDados((prev) => ({...prev, [name]: value}));
     }
+    const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files && e.target.files[0]){
+            const arquivo = e.target.files?.[0];
+            const previewUrl = URL.createObjectURL(arquivo);
+            setBannerImage(previewUrl);
+            setBannerFile(arquivo);
+        }
+    }
+    const handleRemoverBanner = () => {
+        setBannerImage("");
+        setBannerFile(null);
+    }
 
     const handlerEnviar = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log("Comunidade criada:", dados);
+        console.log("Comunidade criada:", dados, "Banner:" , bannerFile);
         voltar("/sucesso-comunidade");
     }
 
@@ -51,14 +65,37 @@ export default function CriarComunidade() {
         value={dados.description}
         onChange={handleMudanca}
         />
-        <div className="formulario-grupo">
-            <label className="formulario-label">Adicionar Foto de Capa: </label>
-            <div className="anexo-placeholder">
-                <IconAnexo />
-                <input type="file" className="input-file-hidden"></input>
-
+        
+            <div className="formulario-grupo">
+                <label className="formulario-label">Adicionar Foto de Capa: </label>
+                
+                <div className="capa-banner-wrapper"> 
+                    {bannerImage ? (
+                        <>
+                            <img src={bannerImage} alt="Capa da comunidade" className="capa-preview-imagem-grande" />
+                            
+                            <button type="button" className="remover-capa-btn" onClick={handleRemoverBanner}>X</button>
+                            
+                            <div className="capa-overlay-edicao">
+                                <IconAnexo />
+                            </div>
+                        </>
+                    ) : (
+                        <div className="placeholder-grande">
+                            <IconAnexo />
+                           
+                        </div>
+                    )}
+                    
+                    <input 
+                        type="file" 
+                        onChange={handleImagemChange} 
+                        className="input-file-on-top" 
+                        accept="image/*" 
+                    />
+                </div>
             </div>
-        </div>
+
         <Botao type="submit" variante="primario">Criar comunidade</Botao>
 
         </form>

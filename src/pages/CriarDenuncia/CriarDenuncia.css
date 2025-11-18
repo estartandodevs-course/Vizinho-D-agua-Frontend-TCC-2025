@@ -1,47 +1,123 @@
-.formulario-container
-{
+.formulario-container {
     width: 100%;
     padding-bottom: 120px;
 }
-.anexo-placeholder
-{
+
+.formulario-grupo {
     display: flex;
-    width: 100%;
-    min-height: 100px;
-    border-radius: 8px;
-    background-color: var(--color-bg-white);
-    color: var(--color-bg-darker-gray);
-    font-size: var(--fs-xs);
-    cursor: pointer;
-    padding: 16px;
-}
-.anexo-placeholder > svg{
-    margin: auto;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.anexo-placeholder:hover
-{
-    opacity: 0.8;
-}
-.anexo-placeholder span {
-    font-size: var(--fs-base); 
+.formulario-label {
+    font-family: var(--font-poppins);
     font-weight: var(--font-weight-medium);
-    margin-bottom: 8px;
-}
-.anexo-placeholder input[type="file"]
-{
-    display: none;
+    font-size: var(--fs-base);
+    color: var(--color-text);
 }
 
-.anexo-galeria{
+
+
+.anexo-container-grande {
+    position: relative;
+    width: 100%;
+    min-height: 120px; 
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--color-bg-white);
+    border: 1px solid var(--color-bg-white); 
+    overflow: hidden;
+}
+
+.galeria-mista-container{
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 12px;
+    width: 100%;
 }
 
-.anexo-imagem-item{
-    width: 80px;
-    height: 80px;
+.placeholder-grande-anexos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bg-darker-gray);
+    font-family: var(--font-poppins);
+    border-radius: 12px;
+    background-color: var(--color-bg-white);
+    padding: 12px;
+    cursor: pointer;
+}
+
+
+.anexo-item-denuncia{
+    position: relative;
+    width: 100px; 
+    height: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.preview-thumb{
+    width: 100%; 
+    height: 100%; 
     object-fit: cover;
-    border-radius: 8px;
+    display: block;
+    border-radius: 12px;
+}
+
+.anexo-botao-upload{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px; 
+    height: 100px; 
+    border-radius: 12px;
+    color: var(--color-bg-darker-gray);
+    background-color: var(--color-bg-white);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+.anexo-botao-upload svg {
+    width: 28px;
+    height: 28px;
+}
+
+.botao-remover-anexo{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px; 
+    height: 24px; 
+    font-size: var(--fs-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-bold);
+}
+
+
+.input-file-hidden{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
 }

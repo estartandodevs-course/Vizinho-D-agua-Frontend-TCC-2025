@@ -21,7 +21,7 @@ export default function ModalDetalhes({ denuncia, onClose }: ModalDetalhesProps)
                 <div className="modal-corpo">
                     <div className="modal-grupo">
                         <strong>Tipo de denúncia: </strong>
-                        <p>{denuncia.title}</p>
+                        <p>{denuncia.reportType}</p>
                     </div>
 
                     <div className="modal-grupo">

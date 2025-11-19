@@ -39,6 +39,7 @@
     display: flex;
     margin-bottom: 8px;
     align-items: baseline;
+    flex-items: flex-start;
 }
 
 .contato-linha a{
@@ -50,12 +51,17 @@
 .contato-linha span{
    flex-grow: 1;
    min-width: 0;
+   min-height: 0;
+
+}
+.contato-hifen{
+   flex-shrink: 0;
+   margin: 0 4px;
 
 }
 
-.contato-descrica-linha{
-    display: none;
-
+.contato-descricao-linha{
+    color: var(--color-text);
 }
 
 .contato-linha a span.contato-link-descricao{

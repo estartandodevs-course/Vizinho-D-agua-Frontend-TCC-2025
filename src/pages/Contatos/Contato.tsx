@@ -27,8 +27,9 @@ export default function Contato() {
                         <Link to="tel:08002823060">
                         0800 282 3060
                         </Link>
+                        <span className="contato-hifen">-</span>
                         <span className="contato-descricao-linha">
-                        - Central de Atendimento Acessivel (CAA)
+                        Central de Atendimento Acessivel (CAA)
                         </span>
                     
                     </div>

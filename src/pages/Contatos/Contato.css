@@ -8,6 +8,7 @@
 .card-info-contato h2{
     font-family: var(--font-poppins);
     font-size: var(--fs-base);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     margin-bottom: 8px;
 }
@@ -16,7 +17,6 @@
     font-family: var(--font-poppins);
     font-weight: var(--font-weight-medium);
     font-size: var(--fs-base);
-    color: var(--color-bg-dark-gray);
     margin-bottom: 16px;
 }
 
@@ -37,7 +37,6 @@
 
 .contato-linha{
     display: flex;
-    /* flex-wrap: wrap; */
     margin-bottom: 8px;
     align-items: baseline;
 }

@@ -41,7 +41,7 @@
 
 .menu-lateral-nome{
     font-weight: var(--font-weight-semibold);
-    font-size: var(--fs-base);
+    font-size: 18px;
     color: var(--color-text);
     margin-bottom: 4px;
 
@@ -49,7 +49,7 @@
 
 .menu-lateral-email
 {
-    font-size: var(--fs-xxs);
+    font-size: 12px;
     color: var(--color-bg-dark-gray);
     word-break: break-all;
     line-height: 1.3;
@@ -72,27 +72,26 @@
 .menu-lateral-links li svg{
     width: 24px;
     height: 24px;
-    color: var(--color-bg-dark-gray);
-    fill: var(--color-bg-dark-gray);
-    stroke: var(--color-bg-dark-gray);
     margin-right: 16px;
 }
 .menu-lateral-links li a
 {
     text-decoration: none;
     font-family: var(--font-poppins);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-regular);
     font-size: var(--fs-base);
-    color: var(--color-text);
+    color: #000000;
 }
 
 .menu-lateral-footer
 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: auto;
-    text-align: center;
-    padding-bottom: 24px;
+    padding-bottom: 18px;
 }
 .menu-lateral-footer img{
-    width: 150px;
-    opacity: 0.8;
+    width: 152px;
+    margin-bottom: -18px;
 }

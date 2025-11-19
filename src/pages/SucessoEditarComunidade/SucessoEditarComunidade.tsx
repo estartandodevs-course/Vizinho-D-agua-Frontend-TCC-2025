@@ -8,21 +8,21 @@ import "./SucessoEditarComunidade.css";
         voltar("/minhas-comunidades");
     }
     return(
-        <section className="editar-container">
-            <div className="editar-conteudo">
-                <h1 className="editar-titulo">Alterações realizadas!</h1>
+        <section className="editar-comunidade-container">
+            <div className="editar-comunidade-conteudo">
+                <h1 className="editar-comunidade-titulo">Alterações realizadas!</h1>
                 <img src="/circulo-check.png" 
                 alt="imagem de sucesso"
-                className="editar-imagem"/>
+                className="editar-comunidade-imagem"/>
 
                 <Botao variante="sucesso" onClick={handlerContinuar}>
                     Continuar
                 </Botao>
             </div>
 
-            <footer className="editar-footer-onda">
-                <img src="onda.png" alt="Onda decorativa" className="editar-imagem-onda"/>
-                <img src="/logo.png" alt="Logo" className="editar-logo" />
+            <footer className="editar-comunidade-footer-onda">
+                <img src="onda.png" alt="Onda decorativa" className="editar-comunidade-imagem-onda"/>
+                <img src="/logo.png" alt="Logo" className="editar-comunidade-logo" />
             </footer>
         </section>
     )

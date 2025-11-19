@@ -24,18 +24,24 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    position: relative;
 }
 
 .modal-header h2{
     font-family: var(--font-poppins);
     font-size: var(--fs-base);
     color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
     text-align: center;
-    flex-grow: 1;
-    border-bottom: 2px solid var(--color-bg-light-gray);
+    border-bottom: 2px solid var(--color-bg-white);
+    display: inline-block;
+    margin: 0 auto;
 }
 
 .modal-botao-fechar{
+    position: absolute;
+    top: 0;
+    right: 0;
     background: none;
     border: none;
     font-size: var(--fs-lg);
@@ -49,16 +55,18 @@
 
 .modal-grupo strong{
     font-family: var(--font-poppins);
-    font-size: var(--fs-base);
+    font-size: var(--fs-xs);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     display: block;
     margin-top: 25px;
 }
 
 .modal-grupo p{
-    font-family: var(--font-darker-grotesque);
-    font-size: var(--fs-base);
-    color: var(--color-bg-dark-gray);
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-regular);
+    font-size: 13px;
+    color: var(--color-bg-darker-gray);
     margin-top: 4px;
 }
 

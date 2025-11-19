@@ -18,7 +18,7 @@ export default function Denuncias() {
                 id={denuncia.id}
                 title={denuncia.reportType}
                 location={denuncia.location}
-                date={denuncia.date}
+                date={denuncia.createdAt}
                 status={denuncia.status}
                 linkType={denuncia.linkType}
                 onVerDetalhesClick={() => setDenunciaSelecionada(denuncia)}

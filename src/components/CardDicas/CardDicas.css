@@ -50,18 +50,23 @@
     font-family: var(--font-poppins);
     font-weight: var(--font-weight-semibold);
     font-size: var(--fs-base);
-    color: var(--color-text);
+    color: #1F2024;
     margin-bottom: 4px;
 }
 .card-dicas-autor{
-    font-family: var(--font-dark-grotesque);
-    font-size: var(--fs-xs);
-    color: var(--color-bg-dark-gray);
+    font-family: var(--font-poppins);
+    font-size: var(--fs-xxs);
+    color: var(--color-bg-darker-gray);
 }
 .card-dicas-download-icone{
-   color: var(--color-primary);
+    color: var(--color-primary);
     cursor: pointer;
     padding-left: 16px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-dicas-download-icone svg{

@@ -5,9 +5,9 @@ type CardComunidadeProps = {
     title: string;
     description: string;
     image: string;
-    membros: number;
+    members: number;
 }
-export default function CardComunidade({ id, title, description, image, membros }: CardComunidadeProps) {
+export default function CardComunidade({ id, title, description, image, members  }: CardComunidadeProps) {
     
     return(
         <article className="card-comunidade-container">
@@ -21,7 +21,7 @@ export default function CardComunidade({ id, title, description, image, membros 
             </div>
 
             <footer className='card-comunidade-footer'>
-                <span className='card-comunidade-membros'>{membros} membros</span>
+                <span className='card-comunidade-membros'>{members} membros</span>
                 <Link to={`/comunidade/${id}`} className='card-comunidade-link'>Ver comunidade</Link>
             </footer>
         </article>

@@ -12,11 +12,19 @@
     gap: 8px;
 }
 
-.formulario-label {
+.formulario-container .formulario-grupo .formulario-label {
     font-family: var(--font-poppins);
     font-weight: var(--font-weight-medium);
-    font-size: var(--fs-base);
+    font-size: var(--fs-xs);
     color: var(--color-text);
+}
+.formulario-input::placeholder,
+.formulario-textarea::placeholder {
+    color: var(--color-bg-darker-gray);
+    font-family: var(--font-darker-grotesque);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--fs-xs);
+     
 }
 
 
@@ -46,7 +54,8 @@
     justify-content: center;
     background-color: var(--color-bg-white);
     color: var(--color-bg-darker-gray);
-    font-family: var(--font-poppins);
+    font-family: var(--font-darker-grotesque);
+
 }
 .placeholder-grande span {
     margin-top: 8px;

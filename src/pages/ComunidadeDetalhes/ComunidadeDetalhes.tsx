@@ -34,7 +34,7 @@ export default function ComunidadeDetalhes() {
     return(
         <div className="comunidade-detalhe-container">
             <header className="detalhe-banner-header">
-                <img src={comunidade?.bannerImage}
+                <img src={comunidade?.coverImage}
                 alt={comunidade?.title}
                 className="detalhe-banner-img"/>
 
@@ -46,7 +46,7 @@ export default function ComunidadeDetalhes() {
 
             <section className="detalhe-info-container">
                 <div className="detalhe-cabecalho-info">
-                    <h1 className="detalhe-titulo">{comunidade?.title} · <span className="detalhe-membros"> {comunidade?.membros} membros</span></h1>
+                    <h1 className="detalhe-titulo">{comunidade?.title} · <span className="detalhe-membros"> {comunidade?.members} membros</span></h1>
                    
                 </div>
                 <p className="detalhe-descricao">{comunidade?.description}</p>

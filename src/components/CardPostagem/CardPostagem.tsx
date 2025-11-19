@@ -20,7 +20,7 @@ export default function CardPostagem({ post }: CardPostagemProps) {
                     className="card-post-avatar"
                 />
                 <div className="card-post-info">
-                    <h2 className="card-post-autor">{post.author.name} · <span className="card-post-data">{post.date}</span></h2>
+                    <h2 className="card-post-autor">{post.author.name} · <span className="card-post-data">{post.createdAt}</span></h2>
                   
                 </div>
             </header>

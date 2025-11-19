@@ -10,7 +10,7 @@ import "./EditarComunidade.css";
 type TiposDeDados ={
     title: string;
     description: string;
-    bannerImage?: string;
+    coverImage: string;
 }
 export default function EditarComunidade() {
     const voltar = useNavigate();
@@ -19,7 +19,7 @@ export default function EditarComunidade() {
     const [dadosComunidade, setDadosComunidade] = useState<TiposDeDados>({
         title: "",
         description: "",
-        bannerImage: ""
+        coverImage: ""
     });
     const [bannerFile, setBannerFile] = useState<File | null>(null);
 
@@ -29,7 +29,7 @@ export default function EditarComunidade() {
             setDadosComunidade({
                 title: comunidade.title,
                 description: comunidade.description,
-                bannerImage: comunidade.bannerImage ? `${comunidade.bannerImage}` : ""
+                coverImage: comunidade.coverImage,
             });
             setBannerFile(null);
         }
@@ -82,11 +82,11 @@ export default function EditarComunidade() {
             <div className="formulario-grupo">
                 <label className="formulario-label">Adicionar Foto de Capa: </label>
                 <div className="capa-banner-wrapper"> 
-                    {dadosComunidade.bannerImage ? (
+                    {dadosComunidade.coverImage ? (
                         <>
                            
                             <img 
-                                src={dadosComunidade.bannerImage}
+                                src={dadosComunidade.coverImage}
                                 alt="Capa da comunidade"
                                 className="capa-preview-imagem-grande"
                             />

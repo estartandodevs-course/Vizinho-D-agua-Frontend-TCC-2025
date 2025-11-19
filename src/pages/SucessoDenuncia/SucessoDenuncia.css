@@ -28,8 +28,8 @@
 
 .sucesso-titulo {
     font-family: var(--font-poppins);
-    font-size: var(--fs-lg);
-    font-weight: var(--font-weight-bold);
+    font-size: var(--fs-sm);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-secondary-blue1);
     text-align: center;
     width: 100%;

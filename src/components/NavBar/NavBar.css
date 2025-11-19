@@ -29,6 +29,7 @@
 }
 .nav-link span{
     font-family: var(--font-poppins);
+    font-weight: var(--font-weight-medium);
     font-size: var(--fs-xxs);
     margin-top: 10px;
 }

@@ -57,17 +57,18 @@
     color: var(--color-text);
 }
 
+
 .detalhe-membros{
     font-family: var(--font-darker-grotesque);
     font-size: var(--fs-xs);
     color: var(--color-text);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-semibold);
 }
 
 .detalhe-descricao{
     font-family: var(--font-darker-grotesque);
     font-size: var(--fs-xs); 
-    
+    font-weight: var(--font-weight-regular);
     color: var(--color-bg-dark-gray); 
     margin-bottom: 5px; 
 }
@@ -79,7 +80,7 @@
 }
 .detalhe-botao-acao{
     font-family: var(--font-poppins);
-    font-size: var(--fs-xxs);
+    font-size: 12px;
     font-weight: var(--font-weight-medium);
     padding: 4px 20px;
     border-radius: 30px;

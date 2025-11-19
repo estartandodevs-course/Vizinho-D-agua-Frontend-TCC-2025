@@ -42,7 +42,7 @@ export default function EditarDenuncia() {
                 company: denunciaParaEditar.company || "",
                 location: denunciaParaEditar.location,
                 description: denunciaParaEditar.description || "",
-                anexoAntigo: denunciaParaEditar.anexos || [],
+                anexoAntigo: denunciaParaEditar.attachments || [],
                 anexoNovo: [],
             });
         }

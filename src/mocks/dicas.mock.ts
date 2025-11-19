@@ -4,6 +4,7 @@ export type Dica ={
     image:string;
     author: string;
     contentType: "Video" | "Documento";
+    
     fileUrl?: string;
 }
 
@@ -18,7 +19,7 @@ export const mockDicas: Dica[] = [
     },
     {
         id: 'd2',
-        title: 'Como filtrar água de forma caseira',
+        title: 'Como filtrar água de forma caseira?',
         image: '/dica-agua2.png',
         author: 'Priscila Silva',
         contentType: 'Video',

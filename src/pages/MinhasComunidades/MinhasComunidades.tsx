@@ -24,7 +24,7 @@ export default function MinhasComunidades() {
                 title={comunidade.title}
                 description={comunidade.description}
                 image={comunidade.coverImage}
-                membros={comunidade.membros}
+                members={comunidade.members}
                 />
             )}
         </section>

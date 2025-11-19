@@ -4,8 +4,6 @@ import Home from "./pages/Home/Home";
 import Denuncias from "./pages/Denuncias/Denuncias";
 import Comunidade from "./pages/Comunidade/Comunidade";
 import Educacional from "./pages/Dicas/Dicas";
-import MenuLateral from "./components/MenuLateral/MenuLateral";
-import EscondeMenu from "./components/EscondeMenu/EscondeMenu";
 import CriarDenuncia from "./pages/CriarDenuncia/CriarDenuncia";
 import LayoutPrincipal from "./components/LayoutPrincipal/LayoutPrincipal";
 import SucessoDenuncia from "./pages/SucessoDenuncia/SucessoDenuncia";
@@ -22,8 +20,7 @@ function App() {
 
   return (
     <>
-      <MenuLateral />
-      <EscondeMenu />
+
        <Routes>
         <Route path="/" element={<LayoutPrincipal />}>
           <Route index element={<Home />} />

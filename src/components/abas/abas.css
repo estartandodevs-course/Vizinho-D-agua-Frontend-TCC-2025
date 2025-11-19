@@ -14,12 +14,12 @@
     font-family: var(--font-poppins);
     font-weight: var(--font-weight-medium);
     font-size: var(--fs-xs);
-    color: var(--color-bg-dark-gray);
+    color: var(--color-bg-darker-gray);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 .aba-item.ativa{
     background-color: var(--color-primary);
-    color: white;
+    color: #FFFFFF;;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }

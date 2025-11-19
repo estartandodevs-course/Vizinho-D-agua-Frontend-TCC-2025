@@ -1,4 +1,4 @@
-.sucesso-container
+.sucesso-comunidade-container
 {
     width: 100%;
     height: 100vh;
@@ -9,7 +9,7 @@
 
 }
 
-.sucesso-conteudo{
+.sucesso-comunidade-conteudo{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,14 +20,14 @@
     padding-top: 60px;
 }
 
-.sucesso-imagem{
+.sucesso-comunidade-imagem{
     width: 200px;
     height: 200px;
     margin-bottom: 24px;
     margin-left: auto;
     margin-right: auto;
 }
-.sucesso-titulo{
+.sucesso-comunidade-titulo{
     font-family: var(--font-poppins);
     font-size: var(--fs-md);
     font-weight: var(--font-weight-semibold);
@@ -38,18 +38,18 @@
     width: 100%;
 
 }
-.sucesso-footer-onda{
+.sucesso-comunidade-footer-onda{
     width: 100vw;
     position: relative;
     margin-top: auto;
 }
-.sucesso-imagem-onda{
+.sucesso-comunidade-imagem-onda{
     width: 100%;
     display: block;
     height: auto;
 }
 
-.sucesso-logo{
+.sucesso-comunidade-logo{
     position: absolute;
     bottom: 30px;
     left: 50%;

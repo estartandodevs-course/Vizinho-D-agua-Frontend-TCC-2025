@@ -36,9 +36,8 @@ export default function Comunidade() {
                         id={comunidade.id}
                         title={comunidade.title}
                         description={comunidade.description}
-                        image={comunidade.coverImage}
-                        
-                        membros={comunidade.membros}
+                        image={comunidade.coverImage}                      
+                        members={comunidade.members}
                     />
                 )}
                   

@@ -11,13 +11,13 @@
     border: none;
     background-color: transparent;
     outline: none;
-    font-family: var(--font-dark-grotesque);
+    font-family: var(--font-poppins);
     font-size: var(--fs-xs);
-    color: var(--color-text);
+    color: var(--color-bg-darker-gray);
 }
 
 .busca-input::placeholder{
-    color: var(--color-bg-dark-gray);
+    color: var(--color-bg-darker-gray);
 }
 .busca-icone-wrapper{
     display:flex;
@@ -38,8 +38,8 @@
 
 .busca-icone-svg
 {
-    width: 20px;
-    height: 20px;
+    width: 34px;
+    height: 24px;
     color: var(--color-primary);
     fill: var(--color-primary);
     stroke: var(--color-primary);

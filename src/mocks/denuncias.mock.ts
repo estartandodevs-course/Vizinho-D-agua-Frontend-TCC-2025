@@ -3,12 +3,12 @@ export type Denuncia = {
     reportType: string;
     description?: string;
     status: 'Em Andamento' | 'Processada';
-    
     location: string;
-    date: string;
+
+    createdAt: string; // CreatedAt
     company?: string;
     linkType: 'Editar' | 'Ver Detalhes';
-    anexos?: string[];
+    attachments?: string[]; // attachments
 }
 
 export const mockDenuncias: Denuncia[] = [
@@ -16,22 +16,23 @@ export const mockDenuncias: Denuncia[] = [
         id: 'd1',
         reportType: 'Falta de água',
         location: 'Rua das Palmeiras',
-        date: '21/10/2025',
+        createdAt: '21/10/2025',
         company: 'Cedae',
         description: 'A água não está chegando nas torneiras desde ontem.',
         status: 'Em Andamento',
         linkType: 'Editar',
-        anexos: ['lavando-a-mao.png', 'torneira-sem-agua.png']
+        attachments: ['lavando-a-mao.png', 'torneira-sem-agua.png'],
+        
     },
     {
         id: 'd2',
         reportType: 'Baixa Pressão',
         location: 'Bairro dos Coqueiros',
-        date: '01/10/2025',
-        company: 'Águas do Rio',
-        description: 'A pressão da água está muito baixa, dificultando o uso diário.',
+        createdAt: '01/10/2025',
+        company: 'Cedae',
+        description: 'Estou sem água desde nove horas da manhã do dia 01/10/2025.',
         status: 'Processada',
         linkType: 'Ver Detalhes',
-        anexos: ['torneira-sem-agua2.png']
+        attachments: ['torneira-sem-agua2.png']
     }
 ]

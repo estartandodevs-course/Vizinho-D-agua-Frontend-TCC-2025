@@ -1,0 +1,16 @@
+export {default as Home} from './Home/Home';
+export {default as Denuncias} from './Denuncias/Denuncias';
+export {default as Comunidade} from './Comunidade/Comunidade';
+export {default as Dicas} from './Dicas/Dicas';
+export {default as ComunidadeDetalhes} from './ComunidadeDetalhes/ComunidadeDetalhes';
+export {default as Contatos} from './Contatos/Contato';
+export {default as CriarComunidade} from './CriarComunidade/CriarComunidade';
+export {default as CriarDenuncia} from './CriarDenuncia/CriarDenuncia';
+export {default as EditarComunidade} from './EditarComunidade/EditarComunidade';
+export {default as EditarDenuncia} from './EditarDenuncia/EditarDenuncia';
+export {default as MinhasComunidades} from './MinhasComunidades/MinhasComunidades';
+export {default as SucessoComunidade} from './SucessoComunidade/SucessoComunidade';
+export {default as SucessoDenuncia} from './SucessoDenuncia/SucessoDenuncia';
+export {default as SucessoEditar} from './SucessoEditar/SucessoEditar';
+export {default as SucessoEditarComunidade} from './SucessoEditarComunidade/SucessoEditarComunidade';
+export {default as LayoutPrincipal} from '../components/LayoutPrincipal/LayoutPrincipal';

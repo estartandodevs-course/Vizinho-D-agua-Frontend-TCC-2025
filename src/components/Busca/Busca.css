@@ -1,0 +1,46 @@
+.busca-container{
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+    background-color: var(--color-bg-white);
+}
+.busca-input{
+    flex-grow: 1;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    font-family: var(--font-poppins);
+    font-size: var(--fs-xs);
+    color: var(--color-bg-darker-gray);
+}
+
+.busca-input::placeholder{
+    color: var(--color-bg-darker-gray);
+}
+.busca-icone-wrapper{
+    display:flex;
+    align-items: center;
+    border-left: 2px solid var(--color-primary);
+    padding-left: 12px;
+    margin-left: 12px;
+}
+
+.busca-botao-submit{
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.busca-icone-svg
+{
+    width: 34px;
+    height: 24px;
+    color: var(--color-primary);
+    fill: var(--color-primary);
+    stroke: var(--color-primary);
+}

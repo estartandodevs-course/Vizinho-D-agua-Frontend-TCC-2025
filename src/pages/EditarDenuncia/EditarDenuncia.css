@@ -1,0 +1,81 @@
+.formulario-container {
+    width: 100%;
+    padding-bottom: 120px;
+}
+
+.formulario-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formulario-label {
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--fs-base);
+    color: var(--color-text);
+}
+
+.anexo-container-com-borda {
+    position: relative;
+    width: 100%;
+    min-height: 124px; 
+    padding: 12px;
+    border-radius: 8px;
+    background-color: var(--color-bg-white);
+    overflow: hidden;
+
+}
+.galeria-mista-container{
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 12px;
+    width: 100%;
+}
+
+.anexo-item-wrapper{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    borrder-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.preview-thumb{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+}
+
+.botao-remover-anexo {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.anexo-botao-upload {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-file-hidden {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}

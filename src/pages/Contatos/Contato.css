@@ -1,0 +1,85 @@
+.card-info-contato{
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+
+}
+
+.card-info-contato h2{
+    font-family: var(--font-poppins);
+    font-size: var(--fs-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: 8px;
+}
+
+.card-info-contato .contato-estado{
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--fs-base);
+    margin-bottom: 16px;
+}
+
+.card-info-contato a,
+.card-info-contato span
+{
+    font-family: var(--font-darker-grotesque);
+    font-size: var(--fs-base);
+}
+
+.card-info-contato a{
+    color: var(--color-primary);
+}
+.card-info-contato span{
+    color: var(--color-text);
+    
+}
+
+.contato-linha{
+    display: flex;
+    margin-bottom: 8px;
+    align-items: baseline;
+    flex-items: flex-start;
+}
+
+.contato-linha a{
+    margin-right: 4px;
+    flex-shrink: 0;
+
+
+}
+.contato-linha span{
+   flex-grow: 1;
+   min-width: 0;
+   min-height: 0;
+
+}
+.contato-hifen{
+   flex-shrink: 0;
+   margin: 0 4px;
+
+}
+
+.contato-descricao-linha{
+    color: var(--color-text);
+}
+
+.contato-linha a span.contato-link-descricao{
+    color: var(--color-text);
+    display: block;
+    padding-left: 4px;
+
+}
+
+.card-info-contato a[href^="mailto:"]{
+    display: block;
+    margin-top: 8px;
+}
+
+.lista-contatos-container hr{
+    border: none;
+    height: 3px;
+    background-color: var(--color-bg-white);
+    margin-top: 24px;
+    margin-bottom: 24px;
+}

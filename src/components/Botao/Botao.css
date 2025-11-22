@@ -1,0 +1,34 @@
+.botao-container
+{
+    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px;
+    font-family: var(--font-poppins);
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.botao-container.primario{
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    font-size: var(--fs-xs);
+    font-weight: var(--font-weight-medium);
+    padding: 10px 30px;
+    
+}
+.botao-container.sucesso{
+    background-color: var(--color-secondary-blue1);
+    color: var(--color-bg-white);
+    font-family: var(--font-poppins);
+    font-size: var(--fs-base);
+    padding: 10px 45px;
+}
+
+.botao-container:active{
+    transform: scale(0.98);
+    opacity: 0.8;
+    background-color: var(--color-secondary-blue2);
+}

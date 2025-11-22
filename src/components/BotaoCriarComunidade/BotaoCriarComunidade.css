@@ -1,0 +1,30 @@
+.botao-criar-comunidade-container{
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    z-index: 50;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    background-color: var(--color-primary);
+    color: var(--color-bg-white);
+    border-radius: 16px;
+
+}
+.botao-criar-comunidade-container svg{
+    width: 28px;
+    height: 28px;
+    fill: var(--color-bg-white);
+    color: var(--color-bg-white);
+    stroke: var(--color-bg-white);
+}
+
+.botao-criar-comunidade-container:active{
+    background-color: var(--color-secondary-blue1);
+    transform: scale(0.95);
+    opacity: 0.8;
+}

@@ -1,0 +1,58 @@
+.editar-comunidade-container
+{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.editar-comunidade-conteudo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+    padding: 0 24px;
+    padding-top: 60px;
+}
+
+.editar-comunidade-imagem{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.editar-comunidade-titulo{
+    font-family: var(--font-poppins);
+    font-size: var(--fs-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-bg-white);
+    margin-bottom: 32px;
+    color: var(--color-secondary-blue1);
+    text-align: center;
+    width: 100%;
+
+}
+.editar-comunidade-footer-onda{
+    width: 100vw;
+    position: relative;
+    margin-top: auto;
+}
+.editar-comunidade-imagem-onda{
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.editar-comunidade-logo{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+}

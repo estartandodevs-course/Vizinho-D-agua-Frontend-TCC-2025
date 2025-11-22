@@ -1,0 +1,67 @@
+.card-denuncia-container{
+    margin-bottom: 24px;
+    border-radius: 16px;
+    padding: 16px;
+   
+}
+
+.card-denuncia-titulo{
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--fs-base);
+    color: var(--color-text);
+    margin-bottom: 4px;
+}
+
+
+.card-denuncia-info{
+    font-family: var(--font-darker-grotesque);
+    font-size: var(--fs-base);
+    font-weight: var(--font-weight-regular);
+    color: #605D64;
+    margin-bottom: 12px;
+    display: block;
+    
+}
+
+.card-denuncia-footer
+{
+    display: flex;
+    align-items: center;
+}
+
+.card-denuncia-status{
+    font-family: var(--font-poppins);
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    padding: 4px 12px;
+    border-radius: 16px;
+}
+.card-denuncia-link{
+    font-family: var(--font-darker-grotesque);
+    font-weight:  var(--font-weight-medium);
+    font-size: var(--fs-base);
+    color: var(--color-primary);
+    margin-left: 24px;
+    line-height: 1.4;
+    text-underline-offset: 3px;
+   
+}
+.card-denuncia-link.as-button{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+   text-decoration: underline;
+
+}
+
+.status-em-andamento{
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+.status-processada{
+    color: var(--color-bg-darker-gray);
+    background-color: var(--color-bg-white);
+}

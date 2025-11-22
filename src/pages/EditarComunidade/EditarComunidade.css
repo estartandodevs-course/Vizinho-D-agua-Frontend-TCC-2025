@@ -1,0 +1,126 @@
+.formulario-container{
+    width: 100%;
+    padding-bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.capa-banner-wrapper { 
+    position: relative; 
+    width: 100%; 
+    height: 150px; 
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+
+.capa-preview-imagem-grande {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+.placeholder-grande { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-white);
+    color: var(--color-bg-darker-gray);
+    font-family: var(--font-poppins);
+}
+.placeholder-grande span {
+    margin-top: 8px;
+    font-size: var(--fs-xs);
+}
+
+
+.remover-capa-btn { 
+    position: absolute; 
+    top: 8px; 
+    right: 8px; 
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-xs);
+    cursor: pointer;
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-bold);
+}
+
+.capa-overlay-edicao {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6); 
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; 
+    z-index: 1;
+}
+.capa-overlay-edicao svg {
+    color: white;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
+    width: 32px;
+    height: 32px;
+}
+
+
+.input-file-on-top { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    opacity: 0; 
+    cursor: pointer; 
+    z-index: 2;
+}
+
+
+
+.formulario-botoes-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    margin-right: -10px;
+    margin-left: -5px;
+}
+
+.botao-cancelar{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--fs-base);
+    color: var(--color-text);
+    margin-left: 10px;
+}
+
+.formulario-botoes-footer .botao-container{
+    margin-right: 0;
+    margin-left: 0;
+    min-width: 180px;
+}

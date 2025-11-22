@@ -1,0 +1,83 @@
+.modal-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-container{
+    background-color: var(--color-bg-white);
+    border-radius: 16px;
+    padding: 24px;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.modal-header h2{
+    font-family: var(--font-poppins);
+    font-size: var(--fs-base);
+    color: var(--color-text);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+    border-bottom: 2px solid var(--color-bg-white);
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.modal-botao-fechar{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: var(--fs-lg);
+    cursor: pointer;
+    color: var(--color-bg-dark-gray);
+}
+
+.modal-grupo{
+    margin-bottom: 16px;
+}
+
+.modal-grupo strong{
+    font-family: var(--font-poppins);
+    font-size: var(--fs-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    display: block;
+    margin-top: 25px;
+}
+
+.modal-grupo p{
+    font-family: var(--font-poppins);
+    font-weight: var(--font-weight-regular);
+    font-size: 13px;
+    color: var(--color-bg-darker-gray);
+    margin-top: 4px;
+}
+
+.modal-anexos{
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+.modal-anexos img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}

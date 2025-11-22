@@ -28,4 +28,3 @@ export const routes = [
   { path: "/sucesso-comunidade", element: <SucessoComunidade /> },
   { path: "/sucesso-editar-comunidade", element: <SucessoEditarComunidade /> },
 ];
-export default routes;

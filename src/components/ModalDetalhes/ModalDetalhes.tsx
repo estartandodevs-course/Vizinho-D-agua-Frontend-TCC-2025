@@ -42,7 +42,7 @@ export default function ModalDetalhes({ denuncia, onClose }: ModalDetalhesProps)
                     <div className="modal-grupo">
                         <strong>Anexos: </strong>
                         <div className="modal-anexos">
-                           {denuncia.anexos?.map((anexoUrl, index) => (
+                           {denuncia.attachments?.map((anexoUrl, index) => (
                                 <img 
                                 key={index}
                                 src={anexoUrl}

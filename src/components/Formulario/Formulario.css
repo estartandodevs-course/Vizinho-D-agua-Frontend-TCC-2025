@@ -65,3 +65,9 @@
     font-size: 16px;
     color: var(--color-text);
 }
+
+.formulario-input:focus,
+.formulario-textarea:focus,
+.formulario-select:focus{
+    outline: 1px solid var(--color-primary);
+}

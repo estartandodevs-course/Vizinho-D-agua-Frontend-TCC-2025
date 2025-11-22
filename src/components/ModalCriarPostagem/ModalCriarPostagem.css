@@ -7,7 +7,7 @@
     z-index: 1100;
     display: flex;
     flex-direction: column;
-    background-color: var(--color-bg-light-gray)
+    background-color: var(--color-bg-light-gray);
 }
 
 .modal-post-header{
@@ -19,7 +19,7 @@
 
 }
 
-.modal-post-header button{
+.modal-post-close-button{
     background: none;
     border: none;
     cursor: pointer;
@@ -28,7 +28,7 @@
     font-weight: var(--font-weight-medium);
 }
 
-.modal-post-cancelar{
+.modal-post-close-button:hover{
     color: var(--color-text);
 }
 
@@ -43,6 +43,7 @@
     display: flex;
     padding: 16px 24px;
     flex-grow: 1;
+    overrflow-y: auto;
 }
 
 .modal-post-avatar{

@@ -10,13 +10,12 @@ export default function Comunidade() {
     const abasDaPagina = ["Explorar", "Seguindo"];
     const[abaAtiva, setAbaAtiva] = useState(abasDaPagina[0]);
 
-    const comunidadesFiltradas = mockComunidades.filter((comunidade: Comunidade) => {
-        if (abaAtiva === "Explorar") {
-            return !comunidade.isSeguindo;
-        } else if (abaAtiva === "Seguindo") {
-            return comunidade.isSeguindo;
-        }
-    });
+    function filtrarComunidade(lista: Comunidade[], aba: string) {
+        if(aba === "Explorar") return lista.filter(c => !c.isSeguindo);
+        if(aba === "Seguindo") return lista.filter(c => c.isSeguindo);
+        return lista;
+    }
+    const comunidadesFiltradas = filtrarComunidade(mockComunidades, abaAtiva);
 
     return (
         <>
@@ -40,7 +39,11 @@ export default function Comunidade() {
                         members={comunidade.members}
                     />
                 )}
-                  
+                {comunidadesFiltradas.length === 0 &&
+                    <p>
+                        Nenhuma comunidade encontrada.
+                    </p>
+                } 
             </section>
         </>
     );

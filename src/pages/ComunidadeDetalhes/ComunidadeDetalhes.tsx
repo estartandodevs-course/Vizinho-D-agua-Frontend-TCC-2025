@@ -8,6 +8,8 @@ import CardPostagem from "../../components/CardPostagem/CardPostagem";
 import "./ComunidadeDetalhes.css";
 import Botao from "../../components/Botao/Botao";
 import ModalCriarPostagem from "../../components/ModalCriarPostagem/ModalCriarPostagem";
+import Carregando from "../../components/Carregando/Carregando";
+
 export default function ComunidadeDetalhes() {
     const {id} = useParams();
     const voltar = useNavigate();
@@ -15,19 +17,41 @@ export default function ComunidadeDetalhes() {
 
     const [comunidade, setComunidade] = useState<Comunidade | null>(null);
     const [postagens, setPostagens] = useState<CommunityPost[]>([]);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const [modalAberto, setModalAberto] = useState(false);
 
     useEffect(() => {
-        const c = mockComunidades.find(c => c.id === id) ?? null;
-        const p = mockPostagens.filter(p => p.communityId === id);
+        async function carregarDados() {
+            try{
+                await new Promise((resolve) => setTimeout (resolve, 300));
 
-        setComunidade(c);
-        setPostagens(p);
+                const c = mockComunidades.find((comunidade) => comunidade.id === id) ?? null;
+                const p = mockPostagens.filter((postagem) => postagem.communityId === id);
+
+                if(!c){
+                    setError("Comunidade não encontrada.");
+                }
+                setComunidade(c);
+                setPostagens (p);
+            }
+            catch(error) {
+                console.error(error);
+                setError("Erro ao carregar dados da comunidade.");
+            }
+            finally {
+                setLoading(false);
+            }
+        }
+        carregarDados();
     }, [id]);
 
-    if(comunidade === null){
-        return <p>Comunidade não encontrada.</p>;
-    }
+    if(error) return <p>{error}</p>;
+
+    if(loading) return <Carregando />;
+
+    if(!comunidade) return <p>Comunidade não encontrada.</p>;
 
     return(
         <div className="comunidade-detalhe-container">

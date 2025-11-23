@@ -14,14 +14,16 @@ export default function Comunidade() {
 
     const [comunidade, setComunidade] = useState<Comunidade[]>([]);
     const [loading, setLoading] = useState(true);
-    const [erro, setError] = useState("");
+    const [erro, setErro] = useState("");
 
     useEffect(() => {
         async function carregarComunidade() {
             try{
                 await new Promise((resolve) => setTimeout(resolve, 300));
+                setComunidade(mockComunidades);
             }catch(error) {
-                console.error("Erro ao carregar comunidades:", error);
+                console.error(error);
+                setErro("Erro ao carregar comunidades:");
             }
             finally{
                 setLoading(false);
@@ -37,7 +39,7 @@ export default function Comunidade() {
         if (aba === "Seguindo") return lista.filter(c => c.isSeguindo && filtroBusca(c));
         return lista.filter(filtroBusca);
     }
-    const comunidadeFiltrada = filtrarComunidade(mockComunidades, abaAtiva);
+    const comunidadeFiltrada = filtrarComunidade(comunidade, abaAtiva);
 
 
     function handleTrocarAba(novaAba: string) {

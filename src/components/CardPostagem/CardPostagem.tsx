@@ -7,9 +7,10 @@ type CardPostagemProps = {
 
 export default function CardPostagem({ post }: CardPostagemProps) {
     
-    const galleryClass = post.images?.length === 1 
-        ? 'gallery-1' 
-        : 'gallery-2';
+    const galleryClass = 
+        post.images?.length === 1 ? 'gallery-1' :
+        post.images?.length === 2 ? 'gallery-2' :
+        'gallery-mosaic';
 
     return (
         <article className="card-post-container">
@@ -21,7 +22,6 @@ export default function CardPostagem({ post }: CardPostagemProps) {
                 />
                 <div className="card-post-info">
                     <h2 className="card-post-autor">{post.author.name} · <span className="card-post-data">{post.createdAt}</span></h2>
-                  
                 </div>
             </header>
 

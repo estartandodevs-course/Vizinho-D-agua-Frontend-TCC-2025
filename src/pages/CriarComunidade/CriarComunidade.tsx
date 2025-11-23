@@ -19,8 +19,11 @@ export default function CriarComunidade() {
         title: "",
         description: ""
     });
+
     const [bannerImage, setBannerImage] = useState<string>("");
     const [bannerFile, setBannerFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const handleMudanca = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
@@ -29,20 +32,55 @@ export default function CriarComunidade() {
     const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.files && e.target.files[0]){
             const arquivo = e.target.files?.[0];
+
+            if(!arquivo.type.startsWith("image/")){
+                setError("Por favor, selecione um arquivo de imagem válido.");
+                return;
+            }
+
+            setError("");
+
             const previewUrl = URL.createObjectURL(arquivo);
             setBannerImage(previewUrl);
             setBannerFile(arquivo);
         }
     }
     const handleRemoverBanner = () => {
+        if(bannerImage) URL.revokeObjectURL(bannerImage);
+
         setBannerImage("");
         setBannerFile(null);
     }
 
-    const handlerEnviar = (event: React.FormEvent) => {
+    const handlerEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log("Comunidade criada:", dados, "Banner:" , bannerFile);
-        voltar("/sucesso-comunidade");
+        if(!dados.title.trim()){
+            setError("O título da comunidade é obrigatório.");
+            return;
+        }
+        if(!dados.description.trim()){
+            setError("A descrição da comunidade é obrigatória.");
+            return;
+        }
+        try{
+            setError("");
+            setLoading(true);
+
+            await new Promise((resolve) => setTimeout(resolve, 700));
+
+            console.log("Enviando para API: ", {
+                ...dados,
+                banner: bannerFile
+            });
+            voltar("/sucesso-comunidade");
+        }
+        catch(error) {
+            console.error(error);
+            setError("Erro ao criar comunidade.");
+        }
+        finally {
+            setLoading(false);
+        }
     }
 
     return(
@@ -50,7 +88,7 @@ export default function CriarComunidade() {
         <BarraTopo title="Criar Comunidade"
         iconType="volta"/>
         <form className="formulario-container" onSubmit={handlerEnviar}>
-
+            {error && <p>{error}</p>}
         <FormularioTexto
         label="Nome da Comunidade"
         placeholder="Defina o  título da comunidade"
@@ -96,8 +134,8 @@ export default function CriarComunidade() {
                 </div>
             </div>
 
-        <Botao type="submit" variante="primario">Criar comunidade</Botao>
-
+        <Botao type="submit" variante="primario">{loading ? "Criando..." : "Criar comunidade"}</Botao>
+                    
         </form>
         </>
     )

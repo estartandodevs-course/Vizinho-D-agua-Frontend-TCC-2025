@@ -1,53 +1,65 @@
-.nav-bar-container
-{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--color-bg-light-gray);
-
-}
-.nav-bar-container ul
-{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-around;
+.nav-bar-container {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-bg-light-gray);
+  padding: 0 1.5rem;
 }
 
-.nav-link
-{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-    text-decoration: none;
-    color: var(--color-bg-dark-gray);
-    border-top: 3px solid transparent;
-    padding-top: 4px;
+.nav-bar-container ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
-.nav-link span{
-    font-family: var(--font-poppins);
-    font-weight: var(--font-weight-medium);
-    font-size: var(--fs-xxs);
-    margin-top: 10px;
+
+.nav-bar-container li {
+  flex: 1;
+  display: flex;
 }
-.nav-link svg{
-    width: 24px;
-    height: 24px;
-    color: var(--color-bg-dark-gray);
-    fill: var(--color-bg-dark-gray);
-    stroke: var(--color-bg-dark-gray);
+
+.nav-bar-container .nav-link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+
+  padding: 8px 0;
+
+  color: var(--color-bg-dark-gray);
+  border-top: 3px solid transparent;
+  font-size: var(--fs-xxs);
+  gap: 6px;
+}
+
+.nav-bar-container .nav-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-bar-container .nav-link.active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .nav-link.active{
     color: var(--color-primary);
     border-top: 3px solid var(--color-primary);
-
 }
+
 .nav-link.active svg{
     color: var(--color-primary);
     fill: var(--color-primary);
     stroke: var(--color-primary);
+}
+
+.nav-bar-container .nav-link {
+  transition: 
+      color 0.25s ease,
+      border-top-color 0.25s ease,
+      background-color 0.25s ease;
 }

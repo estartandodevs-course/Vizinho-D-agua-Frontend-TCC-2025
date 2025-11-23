@@ -21,7 +21,7 @@ export default function ModalCriarPostagem({comunidadeNome, onClose}: ModalCriar
     return(
         <div className="modal-post-overlay">
             <header className="modal-post-header">
-                <button onClick={onClose} className="modal-post-close-button">
+                <button type="button" onClick={onClose} className="modal-post-close-button">
                     Cancelar
                 </button>
                 <Botao onClick={handlerPostar} variante="primario"
@@ -35,20 +35,17 @@ export default function ModalCriarPostagem({comunidadeNome, onClose}: ModalCriar
                 <img src={usuario.profileImage}
                 alt={usuario.name}
                 className="modal-post-avatar"/>
+                
                 <textarea 
-                value={texto}
-                onChange={(e) => setTexto(e.target.value)}
-                placeholder="Escreva algo..."
-                className="modal-post-textarea"
-                autoFocus>
+                    value={texto}
+                    onChange={(e) => setTexto(e.target.value)}
+                    placeholder="Escreva algo..."
+                    className="modal-post-textarea"
+                    autoFocus
+                    />
 
-                </textarea>
             </main>
-            {/* <footer className="modal-post-footer">
-                <span className="modal-post-comunidade-tag">
-                    {comunidadeNome}
-                </span>
-            </footer> */}
+            
         </div>
     )
 }

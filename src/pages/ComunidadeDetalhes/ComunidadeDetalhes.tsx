@@ -8,28 +8,50 @@ import CardPostagem from "../../components/CardPostagem/CardPostagem";
 import "./ComunidadeDetalhes.css";
 import Botao from "../../components/Botao/Botao";
 import ModalCriarPostagem from "../../components/ModalCriarPostagem/ModalCriarPostagem";
+import Carregando from "../../components/Carregando/Carregando";
+
 export default function ComunidadeDetalhes() {
     const {id} = useParams();
     const voltar = useNavigate();
-    const navegar = useNavigate();
+
 
     const [comunidade, setComunidade] = useState<Comunidade | null>(null);
     const [postagens, setPostagens] = useState<CommunityPost[]>([]);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const [modalAberto, setModalAberto] = useState(false);
 
     useEffect(() => {
-        const info = mockComunidades.find(comunidade => comunidade.id === id);
-        if(info)
-        {
-            setComunidade(info);
+        async function carregarDados() {
+            try{
+                await new Promise((resolve) => setTimeout (resolve, 300));
+
+                const c = mockComunidades.find((comunidade) => comunidade.id === id) ?? null;
+                const p = mockPostagens.filter((postagem) => postagem.communityId === id);
+
+                if(!c){
+                    setError("Comunidade não encontrada.");
+                }
+                setComunidade(c);
+                setPostagens (p);
+            }
+            catch(error) {
+                console.error(error);
+                setError("Erro ao carregar dados da comunidade.");
+            }
+            finally {
+                setLoading(false);
+            }
         }
-        const postsDaComunidade = mockPostagens.filter(post => post.communityId === id);
-        setPostagens(postsDaComunidade);
+        carregarDados();
     }, [id]);
 
-    if(!comunidade){
-        return <div>Carregando...</div>;
-    }
+    if(error) return <p>{error}</p>;
+
+    if(loading) return <Carregando />;
+
+    if(!comunidade) return <p>Comunidade não encontrada.</p>;
 
     return(
         <div className="comunidade-detalhe-container">
@@ -52,14 +74,14 @@ export default function ComunidadeDetalhes() {
                 <p className="detalhe-descricao">{comunidade?.description}</p>
                 
                 {comunidade.isOwner ?(
-                    <button onClick={() => navegar(`/editar-comunidade/${comunidade.id}`)}
+                    <button onClick={() => voltar(`/editar-comunidade/${comunidade.id}`)}
                     className="detalhe-botao-acao">
                     Editar
                     </button>
                 ): comunidade?.isSeguindo ?(
-                    <button onClick={() => {}} className="detalhe-botao-acao">Deixar de seguir</button>
+                    <button onClick={() =>setComunidade({...comunidade, isSeguindo: false})} className="detalhe-botao-acao">Deixar de seguir</button>
                 ): (
-                    <button onClick={() => {}} className="detalhe-botao-acao">
+                    <button onClick={() => setComunidade({...comunidade, isSeguindo: true})} className="detalhe-botao-acao">
                     Seguir
                     </button>
                 )}

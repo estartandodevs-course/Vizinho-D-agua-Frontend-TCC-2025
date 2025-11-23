@@ -30,34 +30,63 @@ export default function CriarDenuncia() {
     });
     const [anexosPreview, setAnexosPreview] = useState<string[]>([]);
     const [anexosFiles, setAnexosFiles] = useState<File[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const handleMudanca = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
-        setDadosDenuncia((dadosAnteriores) => ({
-            ...dadosAnteriores,
+        setDadosDenuncia((prev) => ({
+            ...prev,
             [name]: value,
         }));
     }
 
     const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files){
-            const arquivos = Array.from(e.target.files);
-            const novosPreviews = arquivos.map(file => URL.createObjectURL(file));
-            setAnexosPreview(prev => [...prev, ...novosPreviews]);
-            setAnexosFiles(prev => [...prev, ...arquivos]);
-        }
+        if(!e.target.files) return;
+        
+        const arquivos = Array.from(e.target.files);
 
+        const novosPreviews = arquivos.map(arquivo => URL.createObjectURL(arquivo));
+        setAnexosPreview(prev => [...prev, ...novosPreviews]);
+        setAnexosFiles(prev => [...prev, ...arquivos]);
     }
+
     const handleRemoverAnexo = (indexRemover: number) => {
         setAnexosPreview(prev => prev.filter((_, index) => index !== indexRemover));
         setAnexosFiles(prev => prev.filter((_, index) => index !== indexRemover));
     }
 
-    const handlerEnviar = (event: React.FormEvent) => {
+    const handlerEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log("Denúncia registrada:", dadosDenuncia);
-        console.log("Anexos:", anexosFiles);
-        voltar("/sucesso-denuncia");
+        setLoading(true);
+        setError("");
+        if(!dadosDenuncia.reportType || !dadosDenuncia.company || !dadosDenuncia.location || !dadosDenuncia.description){
+            setError("Por favor, preencha todos os campos obrigatórios.");
+            setLoading(false);
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("reportType", dadosDenuncia.reportType);
+        formData.append("company", dadosDenuncia.company);
+        formData.append("location", dadosDenuncia.location);
+        formData.append("description", dadosDenuncia.description);
+        anexosFiles.forEach((file) => {
+            formData.append("files", file);
+        });
+
+        try{
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            voltar("/sucesso-denuncia");
+        }
+        catch(err){
+            console.error(err);
+            setError("Erro ao enviar a denúncia. Tente novamente.");
+        }
+        finally {
+            setLoading(false);
+        }
+
     }
 
     return(
@@ -133,7 +162,8 @@ export default function CriarDenuncia() {
 
                 </div>
             </div>
-            <Botao type="submit">Registrar denúncia</Botao>
+            {error && <p >{error}</p>}
+            <Botao type="submit">{loading ? "Enviando..." : "Registrar denúncia"}</Botao>
 
         </form>
         </>

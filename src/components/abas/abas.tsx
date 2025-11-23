@@ -12,6 +12,8 @@ export default function Abas({ listaDeAbas, abaAtiva, onAbaClick }: AbasProps)
                 <button key={aba} 
                     className={`aba-item ${abaAtiva === aba ? 'ativa' : ''}`}
                     onClick={() => onAbaClick(aba)}
+                    role="tab"
+                    aria-selected={abaAtiva === aba}
                 >
                     {aba}
                 </button>

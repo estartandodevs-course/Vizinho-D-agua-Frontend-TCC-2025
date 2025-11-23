@@ -27,3 +27,4 @@ export { default as IconVolta2 } from './Volta2.svg?react';
 export { default as IconBotaoComunidade } from './BotaoComunidade.svg?react';
 export { default as IconUsersThreeBranco } from './UsersThreeBranco.svg?react';
 export { default as IconAnexoColor } from './AnexoColor.svg?react';
+export { default as IconWaterDrop} from './WaterDrop.svg?react';

@@ -1,5 +1,5 @@
 .comunidade-detalhe-container{
-    padding-bottom: 100px;
+    padding-bottom: 6rem;
     width: 100%;
 
 }
@@ -18,8 +18,8 @@
 
 .detalhe-banner-voltar{
     position: absolute;
-    top: 22px;
-    left: 22px;
+    top: 1rem;
+    left: 1rem;
     z-index: 10;
     border-radius: 50%;
     width: 40px;
@@ -33,21 +33,21 @@
 }
 
 .detalhe-banner-voltar svg{
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     color: var(--color-bg-white);
 }
 
 .detalhe-info-container{
-    padding: 16px;
+    padding: 1.2rem 1rem;
 }
 
 .detalhe-cabecalho-info{
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 5px;
+    gap: 0.5rem;
+    margin-bottom: 4px;
 }
 
 .detalhe-titulo{
@@ -70,7 +70,7 @@
     font-size: var(--fs-xs); 
     font-weight: var(--font-weight-regular);
     color: var(--color-bg-dark-gray); 
-    margin-bottom: 5px; 
+    margin-bottom: 0.75rem; 
 }
 
 .detalhe-posts-lista{

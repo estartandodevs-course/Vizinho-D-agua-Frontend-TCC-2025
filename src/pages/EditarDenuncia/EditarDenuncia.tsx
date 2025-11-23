@@ -9,6 +9,7 @@ import { mockDenuncias } from "../../mocks/denuncias.mock";
 import FormularioTexto from "../../components/Formulario/FormularioTexto";
 import { IconAnexo } from "../../assets/icons";
 import './EditarDenuncia.css'
+import Carregando from "../../components/Carregando/Carregando";
 
 type DadosDenuncia ={
     reportType: string;
@@ -23,6 +24,7 @@ export default function EditarDenuncia() {
     const voltar = useNavigate();
     const {id} = useParams();
 
+
     const [dadosDenuncia, setDadosDenuncia] = useState<DadosDenuncia>({
         reportType: "",
         company: "",
@@ -31,21 +33,40 @@ export default function EditarDenuncia() {
         anexoAntigo: [],
         anexoNovo: [],
     });
-    
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() =>{
-        const denunciaParaEditar = mockDenuncias.find((denuncia) => denuncia.id === id);
-        
-        if(denunciaParaEditar){
-            setDadosDenuncia({
-                reportType: denunciaParaEditar.reportType,
-                company: denunciaParaEditar.company || "",
-                location: denunciaParaEditar.location,
-                description: denunciaParaEditar.description || "",
-                anexoAntigo: denunciaParaEditar.attachments || [],
-                anexoNovo: [],
-            });
+        async function carregarDenuncia()
+        {
+            setLoading(true);
+            setError("");
+            try{
+                const denunciaParaEditar = mockDenuncias.find(denuncia => denuncia.id === id);
+                if(!denunciaParaEditar){
+                    setError("Denúncia não encontrada");
+                    return;
+                
+                }
+                setDadosDenuncia({
+                    reportType: denunciaParaEditar.reportType,
+                    company: denunciaParaEditar.company || "",
+                    location: denunciaParaEditar.location,
+                    description: denunciaParaEditar.description || "",
+                    anexoAntigo: denunciaParaEditar.attachments || [],
+                    anexoNovo: [],
+                });
+            }
+            catch (err) {
+                console.error(err);
+                setError("Erro ao carregar a denúncia. Por favor, tente novamente.");
+            }
+            finally {
+                setLoading(false);
+            }
         }
+        carregarDenuncia();
     }, [id]);
 
     
@@ -82,13 +103,29 @@ export default function EditarDenuncia() {
         }));
     }
 
-    const handleEnviar = (event: React.FormEvent) => {
+    const handleEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
-        voltar("/sucesso-editar");
+        setLoading(true);
+        setError("");
+        try{
+            await new Promise((resolve) => setTimeout(resolve, 300));
+            console.log("Denúncia editada com sucesso:", dadosDenuncia);
+            voltar("/sucesso-editar");
+        }
+        catch (err) {
+            console.error(err);
+            setError("Erro ao editar a denúncia. Por favor, tente novamente.");
+        }
+        finally {
+            setLoading(false);
+        }
     }
     const handlerCancelar = () => {
         voltar(-1);
     }
+
+    if(loading) return <Carregando  />;
+    if(error) return <p>{error}</p>;
 
     return(
         <>

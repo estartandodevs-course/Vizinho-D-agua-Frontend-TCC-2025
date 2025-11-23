@@ -7,6 +7,7 @@ import FormularioTexterea from "../../components/Formulario/FormularioTexterea";
 import { IconAnexoColor } from "../../assets/icons";
 import Botao from "../../components/Botao/Botao";
 import "./EditarComunidade.css";
+import Carregando from "../../components/Carregando/Carregando";
 type TiposDeDados ={
     title: string;
     description: string;
@@ -22,17 +23,41 @@ export default function EditarComunidade() {
         coverImage: ""
     });
     const [bannerFile, setBannerFile] = useState<File | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
 
     useEffect(() =>{
-        const comunidade = mockComunidades.find((comunidade) => comunidade.id === id);
-        if(comunidade) {
+       async function carregarEditarComunidade(){
+        setLoading(true);
+        setError("");
+
+        try{
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            const comunidadeExistente = mockComunidades.find((comunidade) => comunidade.id === id);
+
+            if(!comunidadeExistente){
+                setError("Comunidade não encontrada.");
+                return;
+            }
             setDadosComunidade({
-                title: comunidade.title,
-                description: comunidade.description,
-                coverImage: comunidade.coverImage,
+                title: comunidadeExistente.title,
+                description: comunidadeExistente.description,
+                coverImage: comunidadeExistente.coverImage,
             });
             setBannerFile(null);
         }
+        catch (err) {
+            console.error(err);
+            setError("Erro ao carregar a comunidade. Por favor, tente novamente.");
+        }
+        finally {
+            setLoading(false);
+        }
+       }
+       carregarEditarComunidade();
+
     }, [id]);
 
     const handlerMudanca = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,26 +66,54 @@ export default function EditarComunidade() {
     }
     const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        const previewUrl = file ? URL.createObjectURL(file) : "";
-        setDadosComunidade((prev) => ({...prev, bannerImage: previewUrl}));
+        if(!file) return;
+        const previewURL = URL.createObjectURL(file);
+        setBannerFile(file);
+        setDadosComunidade(prev => ({ ...prev, coverImage: previewURL }));
     }
 
     const handleRemoverBanner = () => {
-        setDadosComunidade(prev => ({ ...prev, bannerImage: "" })); 
+        setDadosComunidade(prev => ({ ...prev, coverImage: "" })); 
         setBannerFile(null); 
     }
 
-    const handlerEviar = (event: React.FormEvent) => {
+    const handlerEviar = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log("Comunidade editada:", dadosComunidade);
-        console.log("Novo Banner: ", bannerFile);
-        voltar("/sucesso-editar-comunidade");
+        setLoading(true);
+        setError("");
+        
+
+        try{
+            const formData = new FormData();
+            formData.append("title", dadosComunidade.title);
+            formData.append("description", dadosComunidade.description);
+            if(bannerFile) formData.append("coverImage", bannerFile);
+        
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            console.log("Comunidade editada com sucesso:", {
+                title: dadosComunidade.title,
+                description: dadosComunidade.description,
+                coverImage: bannerFile ? bannerFile.name : "Imagem removida",
+            });
+            voltar("/sucesso-editar-comunidade");
+        }
+        catch (err) {
+            console.error(err);
+            setError("Erro ao editar a comunidade. Por favor, tente novamente.");
+        }
+        finally {
+            setLoading(false);
+        } 
     }
 
     const handlerCancelar = () => {
         voltar(-1);
     }
 
+    if(loading) return <Carregando  />;
+    if(error) return <p>{error}</p>
+    
     return(
         <>
         <BarraTopo title="Editar Comunidade"

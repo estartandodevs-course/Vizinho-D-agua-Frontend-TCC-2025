@@ -12,10 +12,10 @@ type CardDenunciaProps = {
 }
 export default function CardDenuncia({ id, title, location, date, status, linkType, onVerDetalhesClick }: CardDenunciaProps     ) {
         const getStatusInfo = () =>{
-            if(status === 'Em Andamento'){
-                return {text: 'Em Andamento', className: 'status-em-andamento'};
-            }
-            return {text: 'Processada', className: 'status-processada'};
+            const statusInfo = status === 'Em Andamento'
+                ? { text: 'Em Andamento', className: 'status-em-andamento' }
+                : { text: 'Processada', className: 'status-processada' };
+            return statusInfo;
         }
         const statusInfo = getStatusInfo();
         

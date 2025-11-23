@@ -16,12 +16,14 @@ export default function BarraTopo({ title, iconType }: BarraTopoProps) {
             <header className="barra-topo-container">
                 {iconType === 'menu' && 
                 <button className="barra-topo-botao-icone"
-                onClick={toggleMenu}>
+                onClick={toggleMenu}
+                aria-label="Abrir menu">
                     <IconList />
                 </button>}
                 {iconType === 'volta' &&
                 <button className="barra-topo-botao-icone"
-                    onClick={() => voltar(-1)}>
+                    onClick={() => voltar(-1)}
+                    aria-label="Voltar para a página anterior">
                     <IconVolta />
                 </button>}
                 <h1 className="barra-topo-titulo">{title}</h1>

@@ -13,7 +13,7 @@ type CardAlertaProps = {
 
 export default function CardAlerta({alertType, title, location, time, expandedText}: CardAlertaProps) {
 
-    const [estaExpandido, setEstaExpandido] = useState(false);
+    const [expandido, setExpandido] = useState(false);
 
     const getEstiloPorTipo = () =>{
         switch(alertType){
@@ -26,11 +26,6 @@ export default function CardAlerta({alertType, title, location, time, expandedTe
                 return{
                     classCor: 'tipo-verificado',
                     icone: <IconCheckColor />
-                };
-            default:
-                return{
-                    classCor: 'tipo-verificacao',
-                    icone: <IconAttentionColor />
                 };
         }
     }
@@ -46,13 +41,13 @@ export default function CardAlerta({alertType, title, location, time, expandedTe
                 <h3 className="card-alerta-subtitulo">{title}</h3>
                 <span className="card-alerta-local">{location} • {time}</span>
 
-                {estaExpandido && (
+                {expandido && (
                     <p className="card-alerta-expandido">{expandedText}</p>
                 )}
             <button 
-            className={`card-alerta-ver-detalhes ${estaExpandido ? 'link-expandido' : ''}`}
-                onClick={() => setEstaExpandido(!estaExpandido)}> 
-                {estaExpandido ? "Fechar" : "Ver detalhes"}
+            className={`card-alerta-ver-detalhes ${expandido ? 'link-expandido' : ''}`}
+                onClick={() => setExpandido(!expandido)}> 
+                {expandido ? "Fechar" : "Ver detalhes"}
             </button>
             </div>        
         </div>

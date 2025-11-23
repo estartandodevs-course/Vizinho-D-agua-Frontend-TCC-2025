@@ -16,6 +16,7 @@ export default function Botao({ onClick, children, type = 'button', variante = '
             className={classesDeBotao}
             type={type}
             onClick={onClick}
+            aria-label={typeof children === 'string' ? undefined : 'Botão'}
         >
             {children}
         </button>

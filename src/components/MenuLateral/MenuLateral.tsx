@@ -22,12 +22,12 @@ export default function MenuLateral() {
             </div>
             <nav className="menu-lateral-links">
                 <ul>
-                    <li><IconUserCircle /><Link to="#">Meu Perfil</Link></li>
-                    <li><IconGearSix /><Link to="#">Configurações</Link></li>
-                    <li><IconUsersThree /><Link to="/minhas-comunidades">Minhas comunidades</Link></li>
+                    <li><IconUserCircle /><Link to="/" onClick={toggleMenu}>Meu Perfil</Link></li>
+                    <li><IconGearSix /><Link to="/" onClick={toggleMenu}>Configurações</Link></li>
+                    <li><IconUsersThree /><Link to="/minhas-comunidades" onClick={toggleMenu}>Minhas comunidades</Link></li>
                     <li><IconContact/><Link to="/contatos" onClick={toggleMenu}>Contato</Link></li>
-                    <li><IconInfo /><Link to="#">Sobre</Link></li>
-                    <li><IconHeadset /><Link to="#">Central de Ajuda</Link></li>
+                    <li><IconInfo /><Link to="/" onClick={toggleMenu}>Sobre</Link></li>
+                    <li><IconHeadset /><Link to="/" onClick={toggleMenu}>Central de Ajuda</Link></li>
                 </ul>
             </nav>
             <footer className="menu-lateral-footer">

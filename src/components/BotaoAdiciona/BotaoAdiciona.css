@@ -1,18 +1,29 @@
 .botao-adiciona-container {
     position: fixed;
-    bottom: 100px;
-    right: 24px;
+    bottom: 6rem;
+    right: 2.4rem;
     z-index: 50;
-    width: 60px;
-    height: 60px;
-    display: block;
-    background-image: url('/BotaoCriarNormal.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.botao-adiciona-container:active{
-    background-image: url('/BotaoCriarHover.png');
-    transform: scale(0.95);
+.botao-adiciona-container:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.botao-adiciona-container svg {
+  transition: fill .2s ease, stroke .2s ease;
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+}
+
+.botao-adiciona-container:active svg {
+  fill: var(--color-secondary-blue1);
+  stroke: var(--color-secondary-blue1);
 }

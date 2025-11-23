@@ -65,6 +65,9 @@
 .card-post-gallery.gallery-2 {
     grid-template-columns: 1fr 1fr;
 }
+.card-post-gallery.gallery-mosaic{
+    grid-template-columns: 1fr 1fr 1fr;
+}
 
 .card-post-imagem {
     width: 100%;

@@ -3,15 +3,38 @@ import Busca from "../../components/Busca/Busca";
 import Abas from "../../components/abas/abas";
 import CardEducacional from "../../components/CardDicas/CardDicas";
 import { mockDicas, type Dica } from "../../mocks/dicas.mock";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Carregando from "../../components/Carregando/Carregando";
 
 export default function Dicas() {
     const abasDaPagina = ["Todos", "Videos", "Documentos"];
 
     const [abaAtiva, setAbaAtiva] = useState(abasDaPagina[0]);
     const [busca, setBusca] = useState("");
+    const [dicas, setDicas] = useState<Dica[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    const dicasFiltradas = mockDicas.filter((dica: Dica) =>{
+    useEffect(() => {
+        async function carregarDicas() {
+            setLoading(true);
+            try {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                setDicas(mockDicas);
+            }
+            catch (err) {
+                console.error(err);
+                setError("Erro ao carregar as dicas. Por favor, tente novamente.");
+            }
+            finally {
+                setLoading(false);
+            }
+
+        }
+        carregarDicas();
+    }, [])
+
+    const dicasFiltradas = dicas.filter((dica) =>{
         const filtroAba = abaAtiva === "Videos" ? dica.contentType === "Video" : 
         abaAtiva === "Documentos" ? dica.contentType === "Documento" : true;
 
@@ -30,16 +53,26 @@ export default function Dicas() {
             title="Dicas"
             iconType="menu"
             />
+
             <Busca placeholder="Buscar conteúdo especifico"
              onSearch={(valor) => setBusca(valor)} />
+            
             <nav>
             <Abas listaDeAbas={abasDaPagina}
             abaAtiva={abaAtiva} 
             onAbaClick={handleTrocarAba}
             />
             </nav>
+
             <section className="lista-dicas-container">
-                {dicasFiltradas.map(dicas =>(
+            {loading && <Carregando />}
+            {error && <p>{error}</p>}
+            {!loading && !error && dicasFiltradas.length === 0 && (
+                <p>Nenhum conteúdo encontrado.</p>
+            )}
+
+            {!loading && !error &&
+                dicasFiltradas.map((dicas) =>(
                     <CardEducacional key={dicas.id}
                     image={dicas.image}
                     title={dicas.title}

@@ -60,6 +60,11 @@ export default function CriarDenuncia() {
         event.preventDefault();
         setLoading(true);
         setError("");
+        if(!dadosDenuncia.reportType || !dadosDenuncia.company || !dadosDenuncia.location || !dadosDenuncia.description){
+            setError("Por favor, preencha todos os campos obrigatórios.");
+            setLoading(false);
+            return;
+        }
 
         const formData = new FormData();
         formData.append("reportType", dadosDenuncia.reportType);

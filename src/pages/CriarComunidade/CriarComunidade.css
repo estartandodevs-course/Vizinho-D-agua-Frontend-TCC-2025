@@ -42,6 +42,8 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    position: relative;
+    z-index: 2;
 }
 
 .placeholder-grande { 
@@ -67,8 +69,7 @@
     top: 8px; 
     right: 8px; 
     z-index: 3;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
+    background-color: rgba(0, 0, 0, 1);
     border: none;
     border-radius: 50%;
     width: 28px;

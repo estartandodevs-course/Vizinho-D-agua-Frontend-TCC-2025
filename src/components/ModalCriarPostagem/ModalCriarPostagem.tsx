@@ -1,54 +1,59 @@
-import { useState } from "react";
-import { mockUser } from "../../mocks/usuario.mock";
+import { useState, useEffect } from "react"; 
 import Botao from "../Botao/Botao";
 import "./ModalCriarPostagem.css";
-// Importando o serviço da API
+
 import { criarPostagemAPI } from "../../services/comunidade.services"; 
+import { buscarUsuarioAtual } from "../../services/comunidade.services"; 
+
+const mockUser = {
+    name: "Usuário Atual",
+    profileImage: "/JorgePerfil.png" 
+};
 
 type ModalCriarPostagemProps = {
     comunidadeNome: string;
-    comunidadeId: string; // Obrigatório receber o ID do Pai
+    comunidadeId: string; 
     onClose: () => void;
 }
 
 export default function ModalCriarPostagem({ comunidadeNome, comunidadeId, onClose }: ModalCriarPostagemProps) {
-    // LOG DE DEBUG: Para confirmar se o Pai enviou o ID corretamente
-    console.log("🛠️ [MODAL] Abrindo modal para a comunidade ID:", comunidadeId);
-
+    
     const [texto, setTexto] = useState("");
     const [loading, setLoading] = useState(false);
+    const [authorId, setAuthorId] = useState<string | null>(null);
     
-    // Usuário visual (mock) apenas para mostrar a foto
-    const usuario = mockUser;
+  
+    useEffect(() => {
+        buscarUsuarioAtual().then(id => setAuthorId(id)).catch(() => setAuthorId(null));
+    }, []);
+
+    const isPostagemValida = texto.trim().length > 0 && !!authorId;
 
     const handlerPostar = async () => {
-        if (!texto.trim()) return;
+        if (!isPostagemValida) {
+            if (!authorId) alert("Erro: ID do autor não carregado. Tente novamente.");
+            return;
+        }
 
         try {
             setLoading(true);
             
-            // ID DO USUÁRIO REAL (Copiado do seu Banco de Dados)
-            const userIdDoBanco = "c1410944-9739-4477-a721-e699563396a3"; 
 
-            console.log(`📤 [MODAL] Enviando post... Comunidade: ${comunidadeId}, Autor: ${userIdDoBanco}`);
-
-            // Chamada API
             await criarPostagemAPI({
                 communityId: comunidadeId,
-                authorId: userIdDoBanco,
+                authorId: authorId!, 
                 content: texto,
                 images: []
             });
 
             alert("Postado com sucesso!");
             onClose();
-            
-            // Recarrega a página para atualizar a lista de posts
             window.location.reload(); 
 
         } catch (error) {
+            const errorMsg = (error as Error).message || "Erro desconhecido ao postar.";
             console.error(error);
-            alert("Erro ao postar. Verifique o console.");
+            console.log(`Falha ao postar: ${errorMsg}`);
         } finally {
             setLoading(false);
         }
@@ -64,19 +69,21 @@ export default function ModalCriarPostagem({ comunidadeNome, comunidadeId, onClo
                     onClick={handlerPostar} 
                     variante="primario"
                     className="modal-post-postar"
-                
+             
+                   
                 >
                     {loading ? "Enviando..." : "Postar"}
                 </Botao>
             </header>
-
+          
             <main className="modal-post-corpo">
+              
                 <img 
-                    src={usuario.profileImage}
-                    alt={usuario.name}
+                    src={mockUser.profileImage}
+                    alt={mockUser.name}
                     className="modal-post-avatar"
                 />
-                
+
                 <textarea 
                     value={texto}
                     onChange={(e) => setTexto(e.target.value)}

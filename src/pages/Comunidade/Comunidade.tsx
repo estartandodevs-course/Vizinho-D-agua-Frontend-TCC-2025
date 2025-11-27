@@ -22,10 +22,12 @@ export default function Comunidade() {
             setErro("");
             
             try {
-                const dadosAPI = await listarComunidadesAPI();
+                
+                const dadosAPI = await listarComunidadesAPI(); 
                 setComunidades(dadosAPI);
             } catch (error: any) {
-                setErro("Não foi possível carregar as comunidades do servidor."); 
+            
+                setErro(error.message); 
                 setComunidades([]); 
             } finally {
                 setLoading(false);
@@ -33,7 +35,7 @@ export default function Comunidade() {
         }
         
         carregarComunidades();
-    }, []);
+    }, []); 
 
     function filtrarComunidade(lista: ComunidadeAPI[], aba: string) {
         const filtroBusca = (c: ComunidadeAPI) => {
@@ -42,10 +44,12 @@ export default function Comunidade() {
         };
 
         if (aba === "Explorar") {
-            return lista.filter(c => !c.isSeguindo && filtroBusca(c));
+            
+            return lista.filter(c => !c.isSeguindo && filtroBusca(c)); 
         }
         
         if (aba === "Seguindo") {
+            
             return lista.filter(c => c.isSeguindo && filtroBusca(c));
         }
 
@@ -85,9 +89,11 @@ export default function Comunidade() {
             {!loading && (
                 <section className="lista-comunidades-container">
                     
-                    {erro && comunidadeFiltrada.length === 0 && (
+              
+                    {(erro || comunidadeFiltrada.length === 0) && (
                         <p className="error-message">
-                            Não foi possível listar as comunidades.
+                      
+                            {erro || (comunidades.length === 0 && abaAtiva === "Seguindo" ? "Você ainda não está seguindo nenhuma comunidade." : "Nenhuma comunidade encontrada nesta aba.")}
                         </p>
                     )}
 
@@ -99,15 +105,10 @@ export default function Comunidade() {
                             description={comunidade.description || ""}
                             image={comunidade.coverImage}
                             members={comunidade.membersCount || 0}
+                            
                         />
                     ))}
                     
-                    
-                    {!erro && comunidadeFiltrada.length === 0 && (
-                        <p style={{ textAlign: "center", marginTop: 20, color: "#666" }}>
-                            Nenhuma comunidade encontrada nesta aba.
-                        </p>
-                    )}
                 </section>
             )}
         </>

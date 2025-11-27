@@ -5,25 +5,38 @@ import Formulario from "../../components/Formulario/Formulario";
 import { opcoesTipoDenuncia, opcoesEmpresa } from "../../mocks/formulario.mock";
 import FormularioTexterea from "../../components/Formulario/FormularioTexterea";
 import Botao from "../../components/Botao/Botao";
-import { mockDenuncias } from "../../mocks/denuncias.mock";
 import FormularioTexto from "../../components/Formulario/FormularioTexto";
 import { IconAnexo } from "../../assets/icons";
-import './EditarDenuncia.css'
+import './EditarDenuncia.css';
 import Carregando from "../../components/Carregando/Carregando";
+import { 
+    buscarUsuarioAtual, 
+    atualizarDenunciaAPI, 
+    buscarDenunciaPorId, 
+    traduzirLabelParaTipoBackend,
+} from "../../services/denuncias.services";
 
-type DadosDenuncia ={
+
+type AnexoMisto = string | File; 
+
+export type DadosDenuncia = {
     reportType: string;
-    location: string;
+    location: string; 
     description: string;
     company: string;
-    anexoAntigo: string[];
-    anexoNovo: string[];
-}
+    anexoAntigo: string[]; 
+    anexoNovo: AnexoMisto[]; 
+    
+   
+    city: string;
+    stateCode: string;
+    neighborhood: string; 
+    road: string;
+};
 
 export default function EditarDenuncia() {
     const voltar = useNavigate();
-    const {id} = useParams();
-
+    const { id } = useParams<{id: string}>(); 
 
     const [dadosDenuncia, setDadosDenuncia] = useState<DadosDenuncia>({
         reportType: "",
@@ -32,110 +45,188 @@ export default function EditarDenuncia() {
         description: "",
         anexoAntigo: [],
         anexoNovo: [],
+        city: "",
+        stateCode: "",
+        neighborhood: "",
+        road: "",
     });
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [reporterId, setReporterId] = useState<string | null>(null);
 
-    useEffect(() =>{
-        async function carregarDenuncia()
-        {
+  
+    useEffect(() => {
+        async function carregarDadosIniciais() {
             setLoading(true);
             setError("");
-            try{
-                const denunciaParaEditar = mockDenuncias.find(denuncia => denuncia.id === id);
-                if(!denunciaParaEditar){
-                    setError("Denúncia não encontrada");
-                    return;
+            
+            if (!id) {
+                setError("ID da denúncia ausente.");
+                setLoading(false);
+                return;
+            }
+
+            try {
+                const [denuncia, userId] = await Promise.all([
+                    buscarDenunciaPorId(id), 
+                    buscarUsuarioAtual() 
+                ]);
                 
-                }
-                setDadosDenuncia({
-                    reportType: denunciaParaEditar.reportType,
-                    company: denunciaParaEditar.company || "",
-                    location: denunciaParaEditar.location,
-                    description: denunciaParaEditar.description || "",
-                    anexoAntigo: denunciaParaEditar.attachments || [],
+                const reportTypeLabel = denuncia.reportType; 
+                
+                const initialLocation = denuncia.neighborhood || denuncia.postalCode || "";
+                
+                const dadosIniciais: DadosDenuncia = {
+                    reportType: reportTypeLabel,
+                    company: denuncia.waterCompanyRelated || "",
+                    location: initialLocation, 
+                    description: denuncia.description || "",
+                    anexoAntigo: denuncia.attachments || [], 
                     anexoNovo: [],
-                });
-            }
-            catch (err) {
-                console.error(err);
+                    city: denuncia.city || "",
+                    stateCode: denuncia.stateCode || "",
+                    neighborhood: denuncia.neighborhood || "",
+                    road: denuncia.road || "",
+                };
+                
+                setDadosDenuncia(dadosIniciais);
+                setReporterId(userId);
+
+            } catch (err) {
                 setError("Erro ao carregar a denúncia. Por favor, tente novamente.");
-            }
-            finally {
+            } finally {
                 setLoading(false);
             }
         }
-        carregarDenuncia();
+        carregarDadosIniciais();
     }, [id]);
 
-    
+
     const handleMudanca = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
+        
         setDadosDenuncia((dadosAnteriores) => ({
             ...dadosAnteriores,
             [name]: value,
         }));
-    }
+    };
+
 
     const handleArquivoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files){
-            const arquivos = Array.from(e.target.files);
-            const novosPreviews = arquivos.map(file => URL.createObjectURL(file));
+        if (e.target.files) {
+            const arquivos = Array.from(e.target.files); 
             setDadosDenuncia((dadosAnteriores) => ({
                 ...dadosAnteriores,
-                anexoNovo: [...dadosAnteriores.anexoNovo, ...novosPreviews],
+                anexoNovo: [...dadosAnteriores.anexoNovo, ...arquivos], 
             }));
-        
+        }
+    };
+
+    const removerAntigo = (indexRemover: number) => {
+        setDadosDenuncia((prev) => ({
+            ...prev,
+            anexoAntigo: prev.anexoAntigo.filter((_, i) => i !== indexRemover),
+        }));
+    };
+
+    const removerNovo = (indexRemover: number) => {
+        const arquivo = dadosDenuncia.anexoNovo[indexRemover];
+        if (arquivo instanceof File) {
+            URL.revokeObjectURL(URL.createObjectURL(arquivo));
         }
 
-    }
-    const removerAntigo = (indexRemover: number) => {
-        setDadosDenuncia(prev => ({
+        setDadosDenuncia((prev) => ({
             ...prev,
-            anexoAntigo: prev.anexoAntigo.filter((_, i) => i !== indexRemover)
+            anexoNovo: prev.anexoNovo.filter((_, i) => i !== indexRemover),
         }));
-    }
-    const removerNovo = (indexRemover: number) => {
-        setDadosDenuncia(prev => ({
-            ...prev,
-            anexoNovo: prev.anexoNovo.filter((_, i) => i !== indexRemover)
-        }));
-    }
+    };
+
 
     const handleEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
         setLoading(true);
         setError("");
-        try{
-            await new Promise((resolve) => setTimeout(resolve, 300));
-            console.log("Denúncia editada com sucesso:", dadosDenuncia);
+
+        if (!id || !reporterId) {
+            setError("ID da denúncia ou do usuário ausente.");
+            setLoading(false);
+            return;
+        }
+        
+        const reportTypeBackendValue = traduzirLabelParaTipoBackend(dadosDenuncia.reportType);
+
+        if (reportTypeBackendValue === null) {
+            setError("Tipo de denúncia inválido ou não selecionado.");
+            setLoading(false);
+            return;
+        }
+
+        const cepDigitado = dadosDenuncia.location.replace(/\D/g, '');
+        if (cepDigitado.length < 8) {
+             setError("Localidade (CEP) é obrigatória e deve ter 8 dígitos.");
+             setLoading(false);
+             return;
+        }
+
+        const formData = new FormData();
+
+
+        formData.append("description", dadosDenuncia.description);
+        formData.append("reportType", String(reportTypeBackendValue)); 
+        formData.append("reporterId", reporterId); 
+
+        formData.append("postalCode", cepDigitado); 
+        formData.append("city", dadosDenuncia.city); 
+        formData.append("stateCode", dadosDenuncia.stateCode); 
+        formData.append("neighborhood", dadosDenuncia.neighborhood); 
+        formData.append("road", dadosDenuncia.road); 
+        
+
+        dadosDenuncia.anexoAntigo.forEach(url => {
+            formData.append(`existingAttachmentsToKeep`, url); 
+        });
+
+        dadosDenuncia.anexoNovo.forEach(anexo => {
+            if (anexo instanceof File) {
+                formData.append(`files`, anexo); 
+            }
+        });
+
+        try {
+            await atualizarDenunciaAPI(id, formData);
             voltar("/sucesso-editar");
-        }
-        catch (err) {
-            console.error(err);
-            setError("Erro ao editar a denúncia. Por favor, tente novamente.");
-        }
-        finally {
+        } catch (err: any) {
+            setError(err.message || "Erro ao editar a denúncia. Tente novamente.");
+        } finally {
             setLoading(false);
         }
-    }
+    };
+
     const handlerCancelar = () => {
         voltar(-1);
-    }
+    };
 
-    if(loading) return <Carregando  />;
-    if(error) return <p>{error}</p>;
+    if (loading) return <Carregando />;
+    if (error && !loading) return <p className="error-message" style={{textAlign: 'center', marginTop: '20px'}}>{error}</p>;
 
-    return(
+    const anexosParaExibir = [
+        ...dadosDenuncia.anexoAntigo,
+        ...dadosDenuncia.anexoNovo.filter(anexo => typeof anexo === 'string' || anexo instanceof File).map(anexo => anexo instanceof File ? URL.createObjectURL(anexo) : anexo)
+    ];
+
+
+    return (
         <>
         <BarraTopo title="Denúncia" iconType="volta" />
 
         <form className="formulario-container" onSubmit={handleEnviar}>
+            {error && <p>{error}</p>}
+
             <Formulario
                 label="Tipo de Denúncia:"
                 placeholder="Selecione o tipo de denúncia"
-                opcoes={opcoesTipoDenuncia}
+                opcoes={opcoesTipoDenuncia as string[]}
                 name="reportType"
                 value={dadosDenuncia.reportType}
                 onChange={handleMudanca}
@@ -144,18 +235,19 @@ export default function EditarDenuncia() {
             <Formulario
                 label="Empresa de abastecimento responsável: "
                 placeholder="Selecione a empresa responsável"
-                opcoes={opcoesEmpresa}
+                opcoes={opcoesEmpresa as string[]}
                 name="company"
                 value={dadosDenuncia.company}
                 onChange={handleMudanca}
             />
-            <FormularioTexto 
+            <FormularioTexto
                 label="Localidade afetada (CEP):"
                 placeholder="Informe o cep da localidade afetada"
                 name="location"
                 value={dadosDenuncia.location}
                 onChange={handleMudanca}
             />
+            
             <FormularioTexterea
                 label="Descrição da denúncia:"
                 placeholder="Descreva a sua denúncia"
@@ -168,28 +260,49 @@ export default function EditarDenuncia() {
                 <label className="formulario-label">Anexos: </label>
 
                 <div className="anexo-container-com-borda">
-                    {dadosDenuncia.anexoAntigo.length === 0 && dadosDenuncia.anexoNovo.length === 0 && (
+                    
+                    {anexosParaExibir.length === 0 && (
                         <div className="placeholder-grande-anexos">
                             <IconAnexo />
                         </div>
                     )}
+
                     <div className="galeria-mista-container">
                         
-                        {dadosDenuncia.anexoAntigo.map((anexo, index) => (
+                
+                        {dadosDenuncia.anexoAntigo.map((url, index) => (
                             <div key={`antigo-${index}`} className="anexo-item-wrapper">
-                                <img src={`/${anexo}`} alt={`Antigo ${index}`} className="preview-thumb" />
-                                <button type="button" className="botao-remover-anexo" onClick={() => removerAntigo(index)}>X</button>
+                                <img src={url} alt={`Anexo Antigo ${index}`} className="preview-thumb" />
+                                <button
+                                    type="button"
+                                    className="botao-remover-anexo"
+                                    onClick={() => removerAntigo(index)}
+                                >
+                                    X
+                                </button>
                             </div>
                         ))}
 
+               
                         {dadosDenuncia.anexoNovo.map((anexo, index) => (
                             <div key={`novo-${index}`} className="anexo-item-wrapper">
-                                <img src={anexo} alt={`Novo ${index}`} className="preview-thumb" />
-                                <button type="button" className="botao-remover-anexo" onClick={() => removerNovo(index)}>X</button>
+                                <img 
+                                    src={anexo instanceof File ? URL.createObjectURL(anexo) : String(anexo)} 
+                                    alt={`Anexo Novo ${index}`} 
+                                    className="preview-thumb" 
+                                />
+                                <button
+                                    type="button"
+                                    className="botao-remover-anexo"
+                                    onClick={() => removerNovo(index)}
+                                >
+                                    X
+                                </button>
                             </div>
                         ))}
 
                         <div className="anexo-botao-upload">
+              
                             <input
                                 type="file"
                                 multiple
@@ -198,22 +311,19 @@ export default function EditarDenuncia() {
                             />
                         </div>
                     </div>
-                
                 </div>
             </div>
-            
-            <div className="formulario-botoes-footer">
-            <button type="button"
-            className="botao-cancelar"
-            onClick={handlerCancelar}>
-                Cancelar
-            </button>
 
-            <Botao type="submit" variante="primario">
-            Editar denúncia</Botao>
+            <div className="formulario-botoes-footer">
+                <button type="button" className="botao-cancelar" onClick={handlerCancelar}>
+                    Cancelar
+                </button>
+
+                <Botao type="submit" variante="primario" >
+                    {loading ? "Editando..." : "Editar denúncia"}
+                </Botao>
             </div>
         </form>
         </>
-
-    )
+    );
 }

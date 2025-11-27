@@ -29,7 +29,7 @@ const autorAna: PostAuthor = {
 
 export type CommunityPost = {
     id: string;
-    communityId: 'c1' | 'c2' | 'c3';
+    communityId: string;
     content: string;
     images?: string[];
     

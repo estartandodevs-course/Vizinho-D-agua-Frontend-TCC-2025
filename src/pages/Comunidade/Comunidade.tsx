@@ -1,46 +1,58 @@
-
+import { useEffect, useState } from "react";
 import Abas from "../../components/abas/abas";
 import BarraTopo from "../../components/BarraTopo/BarraTopo";
 import Busca from "../../components/Busca/Busca";
-import { useEffect, useState } from "react";
-import { mockComunidades, type Comunidade } from "../../mocks/comunidades.mock";
 import CardComunidade from "../../components/CardComunidade/CardComunidade";
 import Carregando from "../../components/Carregando/Carregando";
 
+import { listarComunidadesAPI, type ComunidadeAPI } from "../../services/comunidade.services"; 
+
 export default function Comunidade() {
     const abasDaPagina = ["Explorar", "Seguindo"];
-    const[abaAtiva, setAbaAtiva] = useState(abasDaPagina[0]);
+    const [abaAtiva, setAbaAtiva] = useState(abasDaPagina[0]);
     const [busca, setBusca] = useState("");
 
-    const [comunidade, setComunidade] = useState<Comunidade[]>([]);
+    const [comunidades, setComunidades] = useState<ComunidadeAPI[]>([]); 
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
 
     useEffect(() => {
-        async function carregarComunidade() {
-            try{
-                await new Promise((resolve) => setTimeout(resolve, 300));
-                setComunidade(mockComunidades);
-            }catch(error) {
-                console.error(error);
-                setErro("Erro ao carregar comunidades:");
-            }
-            finally{
+        async function carregarComunidades() {
+            setLoading(true);
+            setErro("");
+            
+            try {
+                const dadosAPI = await listarComunidadesAPI();
+                setComunidades(dadosAPI);
+            } catch (error: any) {
+                setErro("Não foi possível carregar as comunidades do servidor."); 
+                setComunidades([]); 
+            } finally {
                 setLoading(false);
             }
         }
-        carregarComunidade();
+        
+        carregarComunidades();
     }, []);
 
-    function filtrarComunidade(lista: Comunidade[], aba: string) {
-        const filtroBusca = (c: Comunidade) =>
-            c.title.toLowerCase().includes(busca.toLowerCase());
-        if (aba === "Explorar") return lista.filter(c => !c.isSeguindo && filtroBusca(c));
-        if (aba === "Seguindo") return lista.filter(c => c.isSeguindo && filtroBusca(c));
+    function filtrarComunidade(lista: ComunidadeAPI[], aba: string) {
+        const filtroBusca = (c: ComunidadeAPI) => {
+            const termo = busca.toLowerCase();
+            return c.title?.toLowerCase().includes(termo) || false;
+        };
+
+        if (aba === "Explorar") {
+            return lista.filter(c => !c.isSeguindo && filtroBusca(c));
+        }
+        
+        if (aba === "Seguindo") {
+            return lista.filter(c => c.isSeguindo && filtroBusca(c));
+        }
+
         return lista.filter(filtroBusca);
     }
-    const comunidadeFiltrada = filtrarComunidade(comunidade, abaAtiva);
 
+    const comunidadeFiltrada = filtrarComunidade(comunidades, abaAtiva);
 
     function handleTrocarAba(novaAba: string) {
         setAbaAtiva(novaAba);
@@ -50,38 +62,53 @@ export default function Comunidade() {
     return (
         <>
             <BarraTopo
-            title="Comunidades"
-            iconType="menu" />
-            <Busca placeholder="Buscar por uma comunidade" onSearch={(valor) => setBusca(valor)} />
+                title="Comunidades"
+                iconType="menu" 
+            />
+            
+            <Busca 
+                placeholder="Buscar por uma comunidade" 
+                onSearch={(valor) => setBusca(valor)} 
+            />
 
             <nav>
-            <Abas listaDeAbas={abasDaPagina}
-            abaAtiva={abaAtiva}
-            onAbaClick={handleTrocarAba} />
+                <Abas 
+                    listaDeAbas={abasDaPagina}
+                    abaAtiva={abaAtiva}
+                    onAbaClick={handleTrocarAba} 
+                />
             </nav>
 
             {loading && <Carregando />}
 
-            {erro && <p>{erro}</p>}
+            
+            {!loading && (
+                <section className="lista-comunidades-container">
+                    
+                    {erro && comunidadeFiltrada.length === 0 && (
+                        <p className="error-message">
+                            Não foi possível listar as comunidades.
+                        </p>
+                    )}
 
-            {!loading && !erro && (
-            <section className="lista-comunidades-container">
-                {comunidadeFiltrada.map(comunidade =>
-                    <CardComunidade
-                        key={comunidade.id}
-                        id={comunidade.id}
-                        title={comunidade.title}
-                        description={comunidade.description}
-                        image={comunidade.coverImage}                      
-                        members={comunidade.members}
-                    />
-                )}
-                {comunidadeFiltrada.length === 0 &&
-                    <p>
-                        Nenhuma comunidade encontrada.
-                    </p>
-                } 
-            </section>
+                    {comunidadeFiltrada.map(comunidade => (
+                        <CardComunidade
+                            key={comunidade.id}
+                            id={comunidade.id}
+                            title={comunidade.title || "Sem título"}
+                            description={comunidade.description || ""}
+                            image={comunidade.coverImage}
+                            members={comunidade.membersCount || 0}
+                        />
+                    ))}
+                    
+                    
+                    {!erro && comunidadeFiltrada.length === 0 && (
+                        <p style={{ textAlign: "center", marginTop: 20, color: "#666" }}>
+                            Nenhuma comunidade encontrada nesta aba.
+                        </p>
+                    )}
+                </section>
             )}
         </>
     );

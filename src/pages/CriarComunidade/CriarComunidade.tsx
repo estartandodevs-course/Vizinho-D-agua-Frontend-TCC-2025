@@ -6,6 +6,9 @@ import Botao from "../../components/Botao/Botao";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CriarComunidade.css"
+
+import { criarComunidadeAPI, type CriarComunidadeDTO } from '../../services/comunidade.services';
+
 type DadosComunidade ={
     title: string;
     description: string;
@@ -29,6 +32,7 @@ export default function CriarComunidade() {
         const {name, value} = e.target;
        setDados((prev) => ({...prev, [name]: value}));
     }
+    
     const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.files && e.target.files[0]){
             const arquivo = e.target.files?.[0];
@@ -45,6 +49,7 @@ export default function CriarComunidade() {
             setBannerFile(arquivo);
         }
     }
+    
     const handleRemoverBanner = () => {
         if(bannerImage) URL.revokeObjectURL(bannerImage);
 
@@ -54,6 +59,8 @@ export default function CriarComunidade() {
 
     const handlerEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
+        
+        
         if(!dados.title.trim()){
             setError("O título da comunidade é obrigatório.");
             return;
@@ -62,21 +69,24 @@ export default function CriarComunidade() {
             setError("A descrição da comunidade é obrigatória.");
             return;
         }
+        
         try{
             setError("");
             setLoading(true);
 
-            await new Promise((resolve) => setTimeout(resolve, 700));
+            const dadosParaAPI: CriarComunidadeDTO = {
+                title: dados.title,
+                description: dados.description
+            };
+            
+            
+            await criarComunidadeAPI(dadosParaAPI, bannerFile);
 
-            console.log("Enviando para API: ", {
-                ...dados,
-                banner: bannerFile
-            });
-            voltar("/sucesso-comunidade");
+            voltar("/sucesso-comunidade"); 
+            
         }
-        catch(error) {
-            console.error(error);
-            setError("Erro ao criar comunidade.");
+        catch(error: any) {
+            setError(`Erro ao criar comunidade. ${error.message || 'Tente novamente.'}`);
         }
         finally {
             setLoading(false);
@@ -88,10 +98,10 @@ export default function CriarComunidade() {
         <BarraTopo title="Criar Comunidade"
         iconType="volta"/>
         <form className="formulario-container" onSubmit={handlerEnviar}>
-            {error && <p>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
         <FormularioTexto
         label="Nome da Comunidade"
-        placeholder="Defina o  título da comunidade"
+        placeholder="Defina o título da comunidade"
         name="title"
         value={dados.title}
         onChange={handleMudanca}/>
@@ -121,7 +131,6 @@ export default function CriarComunidade() {
                     ) : (
                         <div className="placeholder-grande">
                             <IconAnexo />
-                           
                         </div>
                     )}
                     
@@ -134,8 +143,10 @@ export default function CriarComunidade() {
                 </div>
             </div>
 
-        <Botao type="submit" variante="primario">{loading ? "Criando..." : "Criar comunidade"}</Botao>
-                    
+        <Botao type="submit" variante="primario">
+            {loading ? "Criando..." : "Criar comunidade"}
+        </Botao>
+        
         </form>
         </>
     )

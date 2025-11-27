@@ -1,13 +1,14 @@
-import { mockComunidades, type Comunidade } from "../../mocks/comunidades.mock";
 import BarraTopo from "../../components/BarraTopo/BarraTopo";
 import Busca from "../../components/Busca/Busca";
 import CardComunidade from "../../components/CardComunidade/CardComunidade";
 import BotaoCriarComunidade from "../../components/BotaoCriarComunidade/BotaoCriarComunidade";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Carregando from "../../components/Carregando/Carregando";
 
+import { listarComunidadesAPI, type ComunidadeAPI } from '../../services/comunidade.services'; 
+
 export default function MinhasComunidades() {
-    const [comunidade, setComunidade] =useState<Comunidade[]>([]);
+    const [comunidade, setComunidade] = useState<ComunidadeAPI[]>([]);
     const [busca, setBusca] = useState<string>("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -16,26 +17,33 @@ export default function MinhasComunidades() {
         async function carregarMinhasComunidades()
         {
             setLoading (true);
-            setError ("");
+            setError (""); 
+            
             try{
-                await new Promise((resolve) => setTimeout (resolve, 1000));
-                const minhasComunidades = mockComunidades.filter((comunidade: Comunidade) => comunidade.isOwner === true);
-                setComunidade (minhasComunidades);
+                const listaDaAPI = await listarComunidadesAPI();
+                
+              
+                const comunidadesDoUsuario = listaDaAPI.filter((c: ComunidadeAPI) => c.isOwner === true);
+
+                setComunidade(comunidadesDoUsuario);
+                
             }
-            catch (err) {
-                console.error(err);
-                setError("Erro ao carregar as comunidades. Por favor, tente novamente.");
+            catch (err: any) {
+              
+                setError(err.message || "Não foi possível carregar as comunidades.");
+                setComunidade([]);
             }
             finally {
                 setLoading(false);
             }
         }
         carregarMinhasComunidades();
-    }, [])
+    }, []) 
 
     const comunidadesFiltrada = comunidade.filter((comunidade) =>
         comunidade.title.toLowerCase().includes(busca.toLowerCase())
     );
+    
     return(
         <>
         <BarraTopo title="Minhas Comunidades"
@@ -45,9 +53,8 @@ export default function MinhasComunidades() {
 
         {loading && <Carregando />}
         
-        {error && <p>{error}</p>}
 
-        {!loading && !error && (
+        {!loading && (
         <section className="lista-comunidades-container">
                 {comunidadesFiltrada.map(comunidade =>(
                     <CardComunidade
@@ -56,11 +63,13 @@ export default function MinhasComunidades() {
                         title={comunidade.title}
                         description={comunidade.description}
                         image={comunidade.coverImage}
-                        members={comunidade.members}
+                        members={comunidade.membersCount} 
                     />
                 ))}
+            
+            
                 {comunidadesFiltrada.length === 0 &&(
-                    <p>Nenhuma comunidade encontrada.</p>
+                    <p>{error ? "Nenhuma comunidade disponível." : "Nenhuma comunidade encontrada."}</p>
                 )}
         </section>
         )}

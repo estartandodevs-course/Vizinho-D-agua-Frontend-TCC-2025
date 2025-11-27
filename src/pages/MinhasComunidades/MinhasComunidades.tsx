@@ -1,13 +1,19 @@
-import { mockComunidades, type Comunidade } from "../../mocks/comunidades.mock";
 import BarraTopo from "../../components/BarraTopo/BarraTopo";
 import Busca from "../../components/Busca/Busca";
 import CardComunidade from "../../components/CardComunidade/CardComunidade";
 import BotaoCriarComunidade from "../../components/BotaoCriarComunidade/BotaoCriarComunidade";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Carregando from "../../components/Carregando/Carregando";
 
+import { mockComunidades, type Comunidade as ComunidadeMockType } from "../../mocks/comunidades.mock";
+
+import { getComunidades, type Comunidade } from "../../utils/localStorage"; 
+
+type ComunidadeUnificada = Comunidade | ComunidadeMockType;
+
+
 export default function MinhasComunidades() {
-    const [comunidade, setComunidade] =useState<Comunidade[]>([]);
+    const [comunidade, setComunidade] =useState<ComunidadeUnificada[]>([]);
     const [busca, setBusca] = useState<string>("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -19,8 +25,20 @@ export default function MinhasComunidades() {
             setError ("");
             try{
                 await new Promise((resolve) => setTimeout (resolve, 1000));
-                const minhasComunidades = mockComunidades.filter((comunidade: Comunidade) => comunidade.isOwner === true);
-                setComunidade (minhasComunidades);
+                
+                const comunidadesLocais = getComunidades(); // id: number, image: string | null
+                
+                const comunidadesMockOwner = mockComunidades.filter((c) => c.isOwner === true); // id: string, image: string
+
+                const comunidadesLocaisFormatadas: ComunidadeMockType[] = comunidadesLocais.map(c => ({
+                    ...c,
+                    id: String(c.id), 
+                    coverImage: c.coverImage || '' 
+                })) as ComunidadeMockType[];
+                
+                const todasMinhasComunidades = [...comunidadesMockOwner, ...comunidadesLocaisFormatadas];
+                
+                setComunidade (todasMinhasComunidades);
             }
             catch (err) {
                 console.error(err);
@@ -36,6 +54,7 @@ export default function MinhasComunidades() {
     const comunidadesFiltrada = comunidade.filter((comunidade) =>
         comunidade.title.toLowerCase().includes(busca.toLowerCase())
     );
+    
     return(
         <>
         <BarraTopo title="Minhas Comunidades"
@@ -51,12 +70,13 @@ export default function MinhasComunidades() {
         <section className="lista-comunidades-container">
                 {comunidadesFiltrada.map(comunidade =>(
                     <CardComunidade
-                        key={comunidade.id}
-                        id={comunidade.id}
+                        key={comunidade.id} 
+                        id={String(comunidade.id)} 
                         title={comunidade.title}
                         description={comunidade.description}
-                        image={comunidade.coverImage}
+                        image={comunidade.coverImage || ''} 
                         members={comunidade.members}
+                        isOwner={comunidade.isOwner} 
                     />
                 ))}
                 {comunidadesFiltrada.length === 0 &&(

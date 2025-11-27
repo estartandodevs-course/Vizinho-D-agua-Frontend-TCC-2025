@@ -6,6 +6,8 @@ type CardComunidadeProps = {
     description: string;
     image: string;
     members: number;
+    isOwner?: boolean;
+    isSeguindo?: boolean;
 }
 export default function CardComunidade({ id, title, description, image, members  }: CardComunidadeProps) {
     

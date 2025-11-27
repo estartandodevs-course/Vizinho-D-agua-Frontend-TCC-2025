@@ -6,10 +6,22 @@ import Botao from "../../components/Botao/Botao";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CriarComunidade.css"
+
+import { getComunidades, saveComunidades, type Comunidade } from "../../utils/localStorage"; 
+
 type DadosComunidade ={
     title: string;
     description: string;
 }
+
+const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+    });
+};
 
 
 export default function CriarComunidade() {
@@ -52,6 +64,7 @@ export default function CriarComunidade() {
         setBannerFile(null);
     }
 
+
     const handlerEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
         if(!dados.title.trim()){
@@ -66,16 +79,39 @@ export default function CriarComunidade() {
             setError("");
             setLoading(true);
 
-            await new Promise((resolve) => setTimeout(resolve, 700));
+        
+            let coverImageBase64: string | null = null;
+            if (bannerFile) {
+                
+                coverImageBase64 = await fileToBase64(bannerFile);
+            }
 
-            console.log("Enviando para API: ", {
-                ...dados,
-                banner: bannerFile
-            });
-            voltar("/sucesso-comunidade");
+
+            const novaComunidade: Comunidade = {
+               
+                id: Date.now(), 
+                title: dados.title,
+                description: dados.description,
+        
+                coverImage: coverImageBase64, 
+                members: 1, 
+                isSeguindo: true,
+                isOwner: true, 
+            };
+
+
+            
+            const comunidadesAtuais = getComunidades();
+            comunidadesAtuais.push(novaComunidade);
+            saveComunidades(comunidadesAtuais); 
+            
+            if (bannerImage) URL.revokeObjectURL(bannerImage); 
+
+            
+            voltar("/sucesso-comunidade"); 
         }
         catch(error) {
-            console.error(error);
+            console.error("Erro ao criar comunidade e salvar localmente:", error);
             setError("Erro ao criar comunidade.");
         }
         finally {

@@ -111,7 +111,6 @@ export async function listarComunidadesAPI(): Promise<ComunidadeAPI[]> {
             throw new Error("Erro de Rede ou CORS: Não foi possível alcançar o servidor.");
         } 
         
-       
         console.error("Erro Geral:", error.message);
         throw new Error(error.message || "Falha na comunicação com a API de comunidades.");
     }

@@ -14,6 +14,7 @@ import {
     atualizarDenunciaAPI, 
     buscarDenunciaPorId, 
     traduzirLabelParaTipoBackend,
+    type CriarDenunciaDTO 
 } from "../../services/denuncias.services";
 
 
@@ -26,8 +27,7 @@ export type DadosDenuncia = {
     company: string;
     anexoAntigo: string[]; 
     anexoNovo: AnexoMisto[]; 
-    
-   
+
     city: string;
     stateCode: string;
     neighborhood: string; 
@@ -55,7 +55,7 @@ export default function EditarDenuncia() {
     const [error, setError] = useState("");
     const [reporterId, setReporterId] = useState<string | null>(null);
 
-  
+    
     useEffect(() => {
         async function carregarDadosIniciais() {
             setLoading(true);
@@ -73,9 +73,11 @@ export default function EditarDenuncia() {
                     buscarUsuarioAtual() 
                 ]);
                 
+                
                 const reportTypeLabel = denuncia.reportType; 
                 
-                const initialLocation = denuncia.neighborhood || denuncia.postalCode || "";
+             
+                const initialLocation = denuncia.postalCode || denuncia.neighborhood || "";
                 
                 const dadosIniciais: DadosDenuncia = {
                     reportType: reportTypeLabel,
@@ -164,37 +166,28 @@ export default function EditarDenuncia() {
 
         const cepDigitado = dadosDenuncia.location.replace(/\D/g, '');
         if (cepDigitado.length < 8) {
-             setError("Localidade (CEP) é obrigatória e deve ter 8 dígitos.");
-             setLoading(false);
-             return;
+            setError("Localidade (CEP) é obrigatória e deve ter 8 dígitos.");
+            setLoading(false);
+            return;
         }
 
-        const formData = new FormData();
+      
+        const dadosDenunciaDTO: Partial<CriarDenunciaDTO> = {
+            description: dadosDenuncia.description,
+            reportType: String(reportTypeBackendValue), 
+            waterCompanyRelated: dadosDenuncia.company || undefined,
+            postalCode: cepDigitado, 
+            
+           
+          
+        };
 
-
-        formData.append("description", dadosDenuncia.description);
-        formData.append("reportType", String(reportTypeBackendValue)); 
-        formData.append("reporterId", reporterId); 
-
-        formData.append("postalCode", cepDigitado); 
-        formData.append("city", dadosDenuncia.city); 
-        formData.append("stateCode", dadosDenuncia.stateCode); 
-        formData.append("neighborhood", dadosDenuncia.neighborhood); 
-        formData.append("road", dadosDenuncia.road); 
         
 
-        dadosDenuncia.anexoAntigo.forEach(url => {
-            formData.append(`existingAttachmentsToKeep`, url); 
-        });
-
-        dadosDenuncia.anexoNovo.forEach(anexo => {
-            if (anexo instanceof File) {
-                formData.append(`files`, anexo); 
-            }
-        });
-
         try {
-            await atualizarDenunciaAPI(id, formData);
+           
+            await atualizarDenunciaAPI(id, dadosDenunciaDTO);
+            
             voltar("/sucesso-editar");
         } catch (err: any) {
             setError(err.message || "Erro ao editar a denúncia. Tente novamente.");
@@ -243,7 +236,7 @@ export default function EditarDenuncia() {
             <FormularioTexto
                 label="Localidade afetada (CEP):"
                 placeholder="Informe o cep da localidade afetada"
-                name="location"
+                name="location" 
                 value={dadosDenuncia.location}
                 onChange={handleMudanca}
             />
@@ -269,7 +262,7 @@ export default function EditarDenuncia() {
 
                     <div className="galeria-mista-container">
                         
-                
+                    
                         {dadosDenuncia.anexoAntigo.map((url, index) => (
                             <div key={`antigo-${index}`} className="anexo-item-wrapper">
                                 <img src={url} alt={`Anexo Antigo ${index}`} className="preview-thumb" />
@@ -283,7 +276,7 @@ export default function EditarDenuncia() {
                             </div>
                         ))}
 
-               
+                    
                         {dadosDenuncia.anexoNovo.map((anexo, index) => (
                             <div key={`novo-${index}`} className="anexo-item-wrapper">
                                 <img 
@@ -302,7 +295,7 @@ export default function EditarDenuncia() {
                         ))}
 
                         <div className="anexo-botao-upload">
-              
+                    
                             <input
                                 type="file"
                                 multiple

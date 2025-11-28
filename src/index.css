@@ -11,8 +11,6 @@ html{
   background-color: var(--color-bg-light-gray);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
-  /* height: 100vh;
-  overflow: hidden; */
   min-height: 100vh;
 }
 

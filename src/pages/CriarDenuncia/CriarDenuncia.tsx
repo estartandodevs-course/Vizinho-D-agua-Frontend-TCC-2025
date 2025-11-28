@@ -1,4 +1,6 @@
-import { useState } from "react";
+// NO ARQUIVO: CriarDenuncia.tsx
+
+import { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import BarraTopo from "../../components/BarraTopo/BarraTopo";
 import Formulario from "../../components/Formulario/Formulario";
@@ -6,16 +8,20 @@ import FormularioTexterea from "../../components/Formulario/FormularioTexterea";
 import { IconAnexo } from "../../assets/icons";
 import Botao from "../../components/Botao/Botao";
 import "./CriarDenuncia.css"
-import { opcoesTipoDenuncia, opcoesEmpresa } from "../../mocks/formulario.mock";
+import { opcoesTipoDenuncia, opcoesEmpresa } from "../../mocks/formulario.mock"; 
 import FormularioTexto from "../../components/Formulario/FormularioTexto";
 
+import { 
+    criarDenunciaAPI, 
+    buscarUsuarioAtual, 
+    traduzirLabelParaTipoBackend 
+} from '../../services/denuncias.services'; 
 
 type DadosDenuncia = { 
     reportType: string;
     location: string;
     description: string;
     company: string;
-   
 }
 
 export default function CriarDenuncia() {
@@ -26,12 +32,27 @@ export default function CriarDenuncia() {
         company: "",
         location: "",
         description: "",
-
     });
+    
+    const [reporterId, setReporterId] = useState<string | null>(null);
     const [anexosPreview, setAnexosPreview] = useState<string[]>([]);
     const [anexosFiles, setAnexosFiles] = useState<File[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    
+    useEffect(() => {
+        async function loadUser() {
+            try {
+                const id = await buscarUsuarioAtual();
+                setReporterId(id);
+                setError("");
+            } catch (err) {
+                setError("Falha ao carregar as informações do usuário.");
+            }
+        }
+        loadUser();
+    }, []);
 
     const handleMudanca = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement | HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -52,41 +73,65 @@ export default function CriarDenuncia() {
     }
 
     const handleRemoverAnexo = (indexRemover: number) => {
+        URL.revokeObjectURL(anexosPreview[indexRemover]);
+        
         setAnexosPreview(prev => prev.filter((_, index) => index !== indexRemover));
         setAnexosFiles(prev => prev.filter((_, index) => index !== indexRemover));
     }
+
 
     const handlerEnviar = async (event: React.FormEvent) => {
         event.preventDefault();
         setLoading(true);
         setError("");
+        
+       
         if(!dadosDenuncia.reportType || !dadosDenuncia.company || !dadosDenuncia.location || !dadosDenuncia.description){
             setError("Por favor, preencha todos os campos obrigatórios.");
             setLoading(false);
             return;
         }
 
+        if (!reporterId) {
+            setError("ID do usuário ausente. O envio não foi autorizado.");
+            setLoading(false);
+            return;
+        }
+        
+
+        const reportTypeBackendValue = traduzirLabelParaTipoBackend(dadosDenuncia.reportType);
+        
+        if (reportTypeBackendValue === null) {
+            setError("Tipo de denúncia inválido. Selecione uma opção válida da lista.");
+            setLoading(false);
+            return;
+        }
+
+
         const formData = new FormData();
-        formData.append("reportType", dadosDenuncia.reportType);
-        formData.append("company", dadosDenuncia.company);
-        formData.append("location", dadosDenuncia.location);
+        
+
         formData.append("description", dadosDenuncia.description);
+        formData.append("waterCompanyRelated", dadosDenuncia.company);
+        formData.append("reportType", String(reportTypeBackendValue)); 
+        formData.append("reporterId", reporterId); 
+        formData.append("postalCode", dadosDenuncia.location); 
+        
         anexosFiles.forEach((file) => {
-            formData.append("files", file);
+             formData.append(`files`, file); 
         });
 
         try{
-            await new Promise((resolve) => setTimeout(resolve, 3000));
+            await criarDenunciaAPI(formData); 
+            
             voltar("/sucesso-denuncia");
         }
-        catch(err){
-            console.error(err);
-            setError("Erro ao enviar a denúncia. Tente novamente.");
+        catch(err: any){
+            setError(err.message || "Erro ao enviar a denúncia. Tente novamente."); 
         }
         finally {
             setLoading(false);
         }
-
     }
 
     return(
@@ -96,7 +141,7 @@ export default function CriarDenuncia() {
             <Formulario
                 label="Tipo de Denúncia:"
                 placeholder="Selecione o tipo de denúncia"
-                opcoes={opcoesTipoDenuncia}
+                opcoes={opcoesTipoDenuncia as string[]} 
                 name="reportType"
                 value={dadosDenuncia.reportType}
                 onChange={handleMudanca}
@@ -104,7 +149,7 @@ export default function CriarDenuncia() {
             <Formulario 
                 label="Empresa de abastecimento responsável:"
                 placeholder="Selecione a empresa responsável"
-                opcoes={opcoesEmpresa}
+                opcoes={opcoesEmpresa as string[]} 
                 name="company"
                 value={dadosDenuncia.company}
                 onChange={handleMudanca}
@@ -131,10 +176,9 @@ export default function CriarDenuncia() {
                     
                     <div className="galeria-mista-container">
                         
-              
                         {anexosPreview.map((preview, index) => (
                             <div key={index} className="anexo-item-denuncia">
-                                <img src={`${preview}`} alt={`Anexo ${index + 1}`} className="preview-thumb" />  
+                                <img src={`${preview}`} alt={`Anexo ${index + 1}`} className="preview-thumb" />  
                                 <button 
                                 type="button" 
                                 className="botao-remover-anexo" 
@@ -154,16 +198,17 @@ export default function CriarDenuncia() {
                     </div>
 
                     {anexosPreview.length === 0 && (
-                         <div className="placeholder-grande-anexos">
-                            <IconAnexo />
-
-                         </div>
+                           <div className="placeholder-grande-anexos">
+                                <IconAnexo />
+                           </div>
                     )}
 
                 </div>
             </div>
-            {error && <p >{error}</p>}
-            <Botao type="submit">{loading ? "Enviando..." : "Registrar denúncia"}</Botao>
+            {error && <p className="error-message">{error}</p>} 
+            <Botao type="submit">
+                {loading ? "Enviando..." : "Registrar denúncia"}
+            </Botao>
 
         </form>
         </>

@@ -195,7 +195,7 @@ export async function criarDenunciaAPI(formData: FormData): Promise<any> {
  */
 export async function atualizarDenunciaAPI(id: string, data: Partial<CriarDenunciaDTO>): Promise<any> {
     try {
-        // Envia os dados como JSON no corpo da requisição PUT
+        
         const response = await api.put(`/api/Report/${id}`, data);
 
         if (response.status === 200) {

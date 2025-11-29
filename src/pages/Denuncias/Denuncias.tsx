@@ -1,37 +1,45 @@
 import BarraTopo from "../../components/BarraTopo/BarraTopo";
-import { mockDenuncias, type Denuncia } from "../../mocks/denuncias.mock";
+import {type Denuncia } from "../../mocks/denuncias.mock";
 import CardDenuncia from "../../components/CardDenuncia/CardDenuncia";
 import BotaoAdiciona from "../../components/BotaoAdiciona/BotaoAdiciona";
 import ModalDetalhesDenuncia from "../../components/ModalDetalhes/ModalDetalhes";
 import { useState } from "react";
 import Carregando from "../../components/Carregando/Carregando";
 import { useEffect } from "react";
+import { listarDenunciasAPI } from "../../services/denuncias.services";
+import "./Denuncias.css";
 export default function Denuncias() {
     const [denuncia, setDenuncia] = useState<Denuncia[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string>("");
     const [denunciaSelecionada, setDenunciaSelecionada] =  useState<Denuncia | null>(null);
    
-    useEffect(() => {
-        async function carregarDenuncias() 
-        {
-            setLoading(true);
+      const carregarDenuncias = async () => {
+        setLoading(true);
         setError("");
 
-        try{
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            setDenuncia(mockDenuncias);
+        try {
+            
+            const dadosDoBackend = await listarDenunciasAPI();
+            
+            if (Array.isArray(dadosDoBackend)) {
+                setDenuncia(dadosDoBackend);
+            } else {
+               
+                console.warn("API retornou dados inválidos, resetando lista.");
+                setDenuncia([]);
+            }
         } catch (err) {
             console.error(err);
-            setError("Erro ao carregar as denúncias. Por favor, tente novamente.");
+            setError("Não foi possível carregar as denúncias. Verifique sua conexão.");
         } finally {
             setLoading(false);
         }
-        }
+    };
 
+    useEffect(() => {
         carregarDenuncias();
-    }, [])
+    }, []);
    
    
     return (

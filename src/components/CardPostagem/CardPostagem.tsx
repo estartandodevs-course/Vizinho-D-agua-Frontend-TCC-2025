@@ -5,6 +5,7 @@ type CardPostagemProps = {
     post: CommunityPost;
 }
 
+
 export default function CardPostagem({ post }: CardPostagemProps) {
     
     const galleryClass = 
@@ -21,13 +22,27 @@ export default function CardPostagem({ post }: CardPostagemProps) {
                     className="card-post-avatar"
                 />
                 <div className="card-post-info">
-                    <h2 className="card-post-autor">{post.author.name} · <span className="card-post-data">{post.createdAt}</span></h2>
+                   
+                    <h2 className="card-post-autor">
+                        {post.author.name} · <span className="card-post-data">
+                            {(post.createdAt && !isNaN(new Date(post.createdAt).getTime())) 
+                                ? new Date(post.createdAt).toLocaleDateString('pt-BR', { 
+                                    year: 'numeric', 
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                }) 
+                                : post.createdAt
+                            }
+                        </span>
+                    </h2>
                 </div>
             </header>
 
             <div className="card-post-body">
                 <p className="card-post-texto">{post.content}</p>
-
+                
                 {post.images && post.images.length > 0 && (
                     <div className={`card-post-gallery ${galleryClass}`}>
                         {post.images.map((imgUrl, index) => (

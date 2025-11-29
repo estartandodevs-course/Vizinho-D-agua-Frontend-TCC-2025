@@ -69,17 +69,24 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.6); 
-    opacity: 0.5;
+    /* 🚨 CORREÇÃO: Usamos rgba para clarear a imagem, mas removemos o opacity do container
+       para que o SVG interno não fique transparente. */
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com 80% de opacidade */
+    /* opacity: 0.5; <-- REMOVIDO */
+    
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none; 
-    z-index: 1;
+    z-index: 5; /* Z-index mais alto para garantir que o overlay apareça */
 }
 .capa-overlay-edicao svg {
-    color: white;
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.9));
+    /* 🚨 CORREÇÃO: Usamos uma cor escura para que o ícone se destaque no fundo claro do overlay */
+    color: var(--color-bg-darker-gray, #333); 
+    
+    /* Removemos o filtro de sombra branca que estava sobrepondo o ícone no fundo claro */
+    filter: none;
+    
     width: 32px;
     height: 32px;
 }
@@ -95,7 +102,6 @@
     cursor: pointer; 
     z-index: 2;
 }
-
 
 
 .formulario-botoes-footer{

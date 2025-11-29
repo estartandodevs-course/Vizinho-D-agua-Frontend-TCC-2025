@@ -1,0 +1,5 @@
+.lista-comunidades-container  {
+    padding-bottom: 80px; 
+    overflow-y: auto;  
+    flex-grow: 1; 
+}

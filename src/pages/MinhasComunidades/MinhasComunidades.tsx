@@ -5,86 +5,73 @@ import BotaoCriarComunidade from "../../components/BotaoCriarComunidade/BotaoCri
 import { useEffect, useState } from "react";
 import Carregando from "../../components/Carregando/Carregando";
 
-import { mockComunidades, type Comunidade as ComunidadeMockType } from "../../mocks/comunidades.mock";
-
-import { getComunidades, type Comunidade } from "../../utils/localStorage"; 
-
-type ComunidadeUnificada = Comunidade | ComunidadeMockType;
-
+import { mockComunidades } from "../../mocks/comunidades.mock";
 
 export default function MinhasComunidades() {
-    const [comunidade, setComunidade] =useState<ComunidadeUnificada[]>([]);
-    const [busca, setBusca] = useState<string>("");
+    const [comunidades, setComunidades] = useState(mockComunidades);
+    const [busca, setBusca] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    useEffect(() =>{
-        async function carregarMinhasComunidades()
-        {
-            setLoading (true);
-            setError ("");
-            try{
-                await new Promise((resolve) => setTimeout (resolve, 1000));
-                
-                const comunidadesLocais = getComunidades(); // id: number, image: string | null
-                
-                const comunidadesMockOwner = mockComunidades.filter((c) => c.isOwner === true); // id: string, image: string
+    useEffect(() => {
+        setLoading(true);
+        setError("");
 
-                const comunidadesLocaisFormatadas: ComunidadeMockType[] = comunidadesLocais.map(c => ({
-                    ...c,
-                    id: String(c.id), 
-                    coverImage: c.coverImage || '' 
-                })) as ComunidadeMockType[];
-                
-                const todasMinhasComunidades = [...comunidadesMockOwner, ...comunidadesLocaisFormatadas];
-                
-                setComunidade (todasMinhasComunidades);
-            }
-            catch (err) {
-                console.error(err);
-                setError("Erro ao carregar as comunidades. Por favor, tente novamente.");
-            }
-            finally {
+        try {
+            setTimeout(() => {
+                const minhas = mockComunidades.filter(c => c.isOwner === true);
+
+                setComunidades(minhas);
                 setLoading(false);
-            }
+            }, 200);
+
+        } catch (err) {
+            console.error("Erro ao carregar comunidades:", err);
+
+            setError("Erro ao carregar suas comunidades.");
+            setLoading(false);
         }
-        carregarMinhasComunidades();
-    }, [])
+    }, []);
 
-    const comunidadesFiltrada = comunidade.filter((comunidade) =>
-        comunidade.title.toLowerCase().includes(busca.toLowerCase())
+    const comunidadesFiltradas = comunidades.filter(c =>
+        c.title.toLowerCase().includes(busca.toLowerCase())
     );
-    
-    return(
+
+    return (
         <>
-        <BarraTopo title="Minhas Comunidades"
-        iconType="menu"/>
+            <BarraTopo title="Minhas Comunidades" iconType="menu" />
 
-        <Busca placeholder="Buscar por uma comunidade" onSearch={(valor) => setBusca(valor)}/>
+            <Busca
+                placeholder="Buscar por uma comunidade"
+                onSearch={(valor) => setBusca(valor)}
+            />
 
-        {loading && <Carregando />}
-        
-        {error && <p>{error}</p>}
+            {loading && <Carregando />}
 
-        {!loading && !error && (
-        <section className="lista-comunidades-container">
-                {comunidadesFiltrada.map(comunidade =>(
-                    <CardComunidade
-                        key={comunidade.id} 
-                        id={String(comunidade.id)} 
-                        title={comunidade.title}
-                        description={comunidade.description}
-                        image={comunidade.coverImage || ''} 
-                        members={comunidade.members}
-                        isOwner={comunidade.isOwner} 
-                    />
-                ))}
-                {comunidadesFiltrada.length === 0 &&(
-                    <p>Nenhuma comunidade encontrada.</p>
-                )}
-        </section>
-        )}
-        <BotaoCriarComunidade />
+            {error && <p>{error}</p>}
+
+            {!loading && !error && (
+                <section className="lista-comunidades-container">
+                    {comunidadesFiltradas.map((comunidade) => (
+                        <CardComunidade
+                            key={comunidade.id}
+                            id={comunidade.id}
+                            title={comunidade.title}
+                            description={comunidade.description}
+                            image={comunidade.coverImage}
+                            members={comunidade.members}
+                            isOwner={comunidade.isOwner}
+                            isSeguindo={comunidade.isSeguindo}
+                        />
+                    ))}
+
+                    {comunidadesFiltradas.length === 0 && (
+                        <p>Você ainda não criou nenhuma comunidade.</p>
+                    )}
+                </section>
+            )}
+
+            <BotaoCriarComunidade />
         </>
-    )
+    );
 }

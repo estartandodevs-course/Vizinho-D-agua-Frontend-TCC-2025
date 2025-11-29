@@ -7,7 +7,7 @@ import { useState } from "react";
 import Carregando from "../../components/Carregando/Carregando";
 import { useEffect } from "react";
 import { listarDenunciasAPI } from "../../services/denuncias.services";
-
+import "./Denuncias.css";
 export default function Denuncias() {
     const [denuncia, setDenuncia] = useState<Denuncia[]>([]);
     const [loading, setLoading] = useState(true);

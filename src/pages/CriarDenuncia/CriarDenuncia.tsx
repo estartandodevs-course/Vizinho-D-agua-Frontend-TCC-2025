@@ -1,5 +1,3 @@
-// NO ARQUIVO: CriarDenuncia.tsx
-
 import { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import BarraTopo from "../../components/BarraTopo/BarraTopo";
